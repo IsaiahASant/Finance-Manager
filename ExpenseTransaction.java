@@ -14,7 +14,8 @@ public abstract class ExpenseTransaction {
     protected ArrayList<String> necessities; 
     protected ArrayList<String> utilities;  
     protected ArrayList<String> reasons;
-    
+
+    abstract String askReason();
 
 
 }
