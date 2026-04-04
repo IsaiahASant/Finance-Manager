@@ -25,18 +25,32 @@ public class UserInterface implements Runnable, ActionListener{
     /** Recent Transaction Container */
     private JPanel recentTransCont;
 
+    
+
     /**text display content for accounts */
     private JLabel displayAccounts;
 
+    
+
     /** Print transaction history into CSV file format */
     private JButton printCSVButton;
+
+    /**Income Transaction Button*/
+    private JButton incomeButton;
+
+    /**Expense Transaction Button */
+    private JButton expenseButton;
 
     public UserInterface(){
         accountsCont = new JPanel();
         transInputCont = new JPanel();
         recentTransCont= new JPanel();
         displayAccounts = new JLabel("$Total");
+        displayAccounts.setFont(new Font("Arial", Font.BOLD, 30));
         printCSVButton = new JButton("Print");
+        expenseButton = new JButton("Expense");
+        incomeButton = new JButton("Income");
+
     }
 
 
@@ -63,12 +77,42 @@ public class UserInterface implements Runnable, ActionListener{
         framePanel.add(topPanel, BorderLayout.NORTH);
         framePanel.add(bottomPanel, BorderLayout.SOUTH);
 
-        /**setting up accounts display options */
-       
+        /** setting up accounts display options(TOP LEFT CORNER*/
         accountsCont.setLayout(new BorderLayout());
         accountsCont.setPreferredSize(new Dimension(370,370));
         displayAccounts.setHorizontalAlignment(SwingConstants.CENTER);
         accountsCont.add(displayAccounts, BorderLayout.CENTER);
+
+        /** Setting input panel
+         * 
+        */
+        
+        transInputCont.setPreferredSize(new Dimension(370,370));
+        
+        transInputCont.setLayout(new BorderLayout());
+        expenseButton.setPreferredSize(new Dimension(100,50));
+        incomeButton.setPreferredSize(new Dimension(100,50));
+        JPanel option = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        option.add(expenseButton, BorderLayout.WEST);
+        option.add(incomeButton, BorderLayout.EAST );
+
+        //GridBagLayout is more dynamic/flexible than GridLayout
+        JPanel centerWrapper = new JPanel(new GridBagLayout());
+        centerWrapper.add(option,new GridBagConstraints());
+
+        transInputCont.add(centerWrapper ,BorderLayout.CENTER);
+
+
+
+        /** Setting up bottom transaction section */
+        recentTransCont = new JPanel(new GridLayout(6,0));
+        for(int i = 0; i < 6; i ++){
+            
+            recentTransCont.add(new JLabel("Transaction type: ?, Amount: ?, Reason: ?"));
+        }
+
+        
+        
 
 
         // having top panel add totalAccount panel and input transaction 
@@ -77,6 +121,8 @@ public class UserInterface implements Runnable, ActionListener{
         
         topPanel.add(accountsCont, BorderLayout.WEST);
         topPanel.add(transInputCont, BorderLayout.EAST);
+
+        bottomPanel.add(recentTransCont);
 
        
         //ading framepanel to frame and setting window visable
@@ -89,6 +135,8 @@ public class UserInterface implements Runnable, ActionListener{
 
     
 
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -98,6 +146,4 @@ public class UserInterface implements Runnable, ActionListener{
 
         
     }
-    
-
 }
