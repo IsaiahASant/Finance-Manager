@@ -11,6 +11,7 @@ public class BillsTransaction extends ExpenseTransaction{
     Scanner scanner = new Scanner(System.in);
     @Override
     public String askReason(){
+        System.out.println("Why did you make this purchase?");
         return scanner.next();
     }
 }
