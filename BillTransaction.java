@@ -7,15 +7,16 @@ import java.util.ArrayList;
  * 
  */
 
-public class GroceryTransaction implements ExpenseTransaction{
-    private String ID;
+public class BillTransaction implements ExpenseTransaction{
+    private String source;
+    private String transactionId;
     private String reason;
     private int amount;
 
     //* unique list speficialy for this object */
     private ArrayList<String> list; 
 
-    public GroceryTransaction(int amount, String reason){
+    public BillTransaction(int amount, String reason){
         this.reason = reason;
         this.amount = amount;
 
@@ -39,20 +40,17 @@ public class GroceryTransaction implements ExpenseTransaction{
         return amount;
     }
 
+    @Override
+    public String getTransactionId(){
+        return transactionId;
+    }
+
 
     /**
      * 
      */
     @Override
     public String toString(){
-        return "";
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public String getTransactionId(){
         return "";
     }
 
