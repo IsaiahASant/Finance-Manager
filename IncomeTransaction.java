@@ -1,17 +1,17 @@
-public class incomeTransaction {
+public class IncomeTransaction {
     private int amount;
     private String source;
     private String transactionId;
     private double tax; 
     private double afterTax;
 
-    public incomeTransaction() {
+    public IncomeTransaction() {
         this.amount = 0;
         this.source = "Unkown";
         this.transactionId = "N/A";
     }
 
-    public incomeTransaction( int amount, String source, String transactionId) {
+    public IncomeTransaction( int amount, String source, String transactionId) {
         this.amount = amount;
         this.source = source;
         this.transactionId = transactionId;

@@ -1,26 +1,23 @@
 import java.util.ArrayList;
 /**
- * Keeps track of the bills being paid
  * 
+ * This transaction class tracks list of items that have been bought(can include food item)
  * @author Sean Powers & Isaiah Santamaria
  * @version Spring 2026
  * 
  */
 
-public class BillTransaction implements ExpenseTransaction{
-    private String source;
-    private String transactionId;
+public class ShoppingTransaction implements ExpenseTransaction{
+    private ArrayList<String> items;
+    private String ID;
     private String reason;
     private int amount;
 
     //* unique list speficialy for this object */
     private ArrayList<String> list; 
 
-    public BillTransaction(int amount, String reason){
-        this.reason = reason;
-        this.amount = amount;
-
-        list = new ArrayList<String>();
+    public ShoppingTransaction(int amount, String reason){
+      
 
     }
 
@@ -29,7 +26,7 @@ public class BillTransaction implements ExpenseTransaction{
      */
     @Override
     public String getReason(){
-        return reason;
+      
     }
 
     /**
@@ -37,14 +34,7 @@ public class BillTransaction implements ExpenseTransaction{
      */
     @Override
     public int getAmount(){
-        return amount;
-    }
-    /**
-     * returns transactionId variable
-     */
-    @Override
-    public String getTransactionId(){
-        return "";
+        
     }
 
 
@@ -57,10 +47,25 @@ public class BillTransaction implements ExpenseTransaction{
     }
 
     /**
+     * 
+     */
+    @Override
+    public String getTransactionId(){
+        return "";
+    }
+
+    /**
      * adds food list into list
      * @param food
      */
-  
+    
+
+    
+    /**
+     * 
+     * @param list
+     */
+    public void addItems(ArrayList<String> list){
 
     }
 
@@ -68,3 +73,4 @@ public class BillTransaction implements ExpenseTransaction{
 
 
 
+}
