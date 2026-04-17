@@ -45,7 +45,7 @@ public class GroceryTransaction implements ExpenseTransaction{
      */
     @Override
     public String toString(){
-        return "";
+        return "Paid the " + reason + "bill totaling " + amount + " dollars." ;
     }
 
     /**
@@ -53,7 +53,7 @@ public class GroceryTransaction implements ExpenseTransaction{
      */
     @Override
     public String getTransactionId(){
-        return "";
+        return ID;
     }
 
     /**
