@@ -20,4 +20,25 @@ public class csvDisplay {
 
         return data;
     }
+
+    public static void displayCsv(List<String[]> data) {
+        for (String[] row : data) {
+            for (String value : row) {
+                System.out.print(value + "\t");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        if (args.length == 0) {
+            System.out.println("Usage: java csvDisplay <csv-file-path>");
+            return;
+        }
+
+        String file = args[0];
+
+        List<String[]> data = getCsv(file);
+        displayCsv(data);
+    }
 }
