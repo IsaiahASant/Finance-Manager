@@ -8,6 +8,7 @@ import javax.swing.*;
 public class InputCont extends JFrame{
 
 
+    
 }
     
 
