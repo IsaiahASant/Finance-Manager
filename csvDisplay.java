@@ -4,7 +4,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class reads a csv file and displays it
+ * 
+ * @author Hayden Ralston
+ * @version Spring 2026
+ */
 public class csvDisplay {
+    /**
+     * Gets the csv file and returns the data
+     * 
+     * @param file the csv file
+     * @return data returns the data list
+     */
     public static List<String[]> getCsv(String file) {
         List<String[]> data = new ArrayList<>();
         String line;
@@ -21,6 +33,11 @@ public class csvDisplay {
         return data;
     }
 
+    /**
+     * Displays the csv file athe data point
+     * 
+     * @param data the list of the csv files
+     */
     public static void displayCsv(List<String[]> data) {
         for (String[] row : data) {
             for (String value : row) {
@@ -30,6 +47,12 @@ public class csvDisplay {
         }
     }
 
+
+    /**
+     * Reads and displays the given csv file
+     * 
+     * @param args the csv file
+     */
     public static void main(String[] args) {
         if (args.length == 0) {
             System.out.println("Usage: java csvDisplay <csv-file-path>");
