@@ -17,7 +17,10 @@ public class ShoppingTransaction implements ExpenseTransaction{
     private ArrayList<String> list; 
 
     public ShoppingTransaction(int amount, String reason){
-      
+      this.amount = amount;
+      this.reason = reason;
+
+      list = new ArrayList<String>();
 
     }
 
@@ -26,7 +29,7 @@ public class ShoppingTransaction implements ExpenseTransaction{
      */
     @Override
     public String getReason(){
-      
+      return reason;
     }
 
     /**
@@ -34,7 +37,7 @@ public class ShoppingTransaction implements ExpenseTransaction{
      */
     @Override
     public int getAmount(){
-        
+        return amount;
     }
 
 
@@ -43,7 +46,7 @@ public class ShoppingTransaction implements ExpenseTransaction{
      */
     @Override
     public String toString(){
-        return "";
+        return "Paid the " + reason + "bill totaling " + amount + " dollars.";
     }
 
     /**
@@ -65,8 +68,8 @@ public class ShoppingTransaction implements ExpenseTransaction{
      * 
      * @param list
      */
-    public void addItems(ArrayList<String> list){
-
+    public void addItems(String item){
+        list.add(item);
     }
 
 

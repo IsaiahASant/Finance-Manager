@@ -45,7 +45,7 @@ public class GroceryTransaction implements ExpenseTransaction{
      */
     @Override
     public String toString(){
-        return "";
+        return "Paid the " + reason + "bill totaling " + amount + " dollars." ;
     }
 
     /**
@@ -53,7 +53,7 @@ public class GroceryTransaction implements ExpenseTransaction{
      */
     @Override
     public String getTransactionId(){
-        return "";
+        return ID;
     }
 
     /**
@@ -61,7 +61,7 @@ public class GroceryTransaction implements ExpenseTransaction{
      * @param food
      */
     public void addList(String food){
-        if(........){ //validates if string is a food <<<<<< Maybe we can use an API to validate if a string is a food>>>>>>>>>>>
+        if(){ //validates if string is a food <<<<<< Maybe we can use an API to validate if a string is a food>>>>>>>>>>>
             list.add(food);
         }else{
             System.out.println("This is not a food");

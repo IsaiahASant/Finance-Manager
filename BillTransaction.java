@@ -44,7 +44,7 @@ public class BillTransaction implements ExpenseTransaction{
      */
     @Override
     public String getTransactionId(){
-        return "";
+        return transactionId;
     }
 
 
@@ -53,7 +53,7 @@ public class BillTransaction implements ExpenseTransaction{
      */
     @Override
     public String toString(){
-        return "";
+        return "Paid the " + reason + "bill totaling " + amount + " dollars.";
     }
 
     /**
