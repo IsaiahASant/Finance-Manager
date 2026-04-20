@@ -3,8 +3,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagLayout;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
 
 
 
@@ -12,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
  * This is an interactive conatiner where it prompts
  * users to put in transaction input or not
  * @author Isaiah Santamaria
+ * @version 4/19/2026
  */
 public class InputCont extends JPanel{
         /** display transaction variables */
@@ -39,6 +43,22 @@ public class InputCont extends JPanel{
             setBackground(COLOR_THEME.QUATERNARY);
             setForeground(COLOR_THEME.PRIMARY);
         }};
+
+        /**adding interactive buttons */
+        income_btn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Income btn Clicked!");
+            }
+        });
+
+        expense_btn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("expense btn Clicked!");
+            }
+        });
+        
         displayOptions();
 
         setVisible(true);
@@ -82,7 +102,7 @@ public class InputCont extends JPanel{
      */
     private void displayOptions(){
         setLayout(new GridBagLayout());
-        
+
         add(new JContainer(){{
             add(income_btn);
             add(expense_btn);  
@@ -90,7 +110,5 @@ public class InputCont extends JPanel{
         
 
     }
-
-    
 
 }
