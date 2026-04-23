@@ -1,9 +1,13 @@
-
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 /**
  * main container of root
+ * actionlistener for each buttons will be put HERE
+ * 
+ * big highlighted comments are the code you uys will be working with
  * @author Isaiah Santamaria
  * @version 4/16/2025
  */
@@ -14,18 +18,43 @@ public class Root extends JPanel {
     public AccountsCont accountsCont;
     public JContainer contentCont;
 
+    /** setting up buttons to be mainupliated here */
+    JButton csvButton = new JButton("Print");
+    
+
+    /** Temporary holder for transaction */
+    
+
+
     public static final ColorTheme COLOR_THEME = new ColorTheme();
     public Root(){
+        
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(0, 40, 40, 40)); // makes Root have auto padding
         setBackground(COLOR_THEME.PRIMARY);
-        //setSize(700,500);
-        recentTransaction = new RecentTransactionCont();
+        
+
+
+        /**
+         *  ACTION LISTENER FOR csvButton, needs to capabilities to interpet and make a csv
+         * file of the Database/array
+        */
+        csvButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               
+                System.out.println("Income btn Clicked in root !");
+            }
+        });
+
+
+
+
+        recentTransaction = new RecentTransactionCont(csvButton); 
         BANNER = new Banner();
         inputCont = new InputCont();
         accountsCont = new AccountsCont();
         setBackground(COLOR_THEME.PRIMARY);
-
 
         JContainer contentCont = new JContainer(); //in charge of hosting rest of content
      

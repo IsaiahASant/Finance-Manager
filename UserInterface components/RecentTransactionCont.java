@@ -1,3 +1,5 @@
+
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -20,13 +22,16 @@ public class RecentTransactionCont extends JPanel{
     private static final ColorTheme COLOR_THEME = new ColorTheme();
     private JTable table;
     private DefaultTableModel tableModel;
-    private JButton print_csv_btn;
+    public JButton print_csv_btn;
     //setting up JTable and its test data cases for table
     private String[][] data = { {"+1000", "Income", "Bill", "Income", "1/1/1"}, {"Jane", "30"} };
     private String[] columns = {"Amount", "Type", "Category", "Account", "Date"};
     private String [] dataTwo =  {"-1000", "Expense", "Bill", "Expense", "1/1/1"};
-
-    public RecentTransactionCont(){
+    /**
+     * 
+     * @param csvButton
+     */
+    public RecentTransactionCont(JButton csvButton){
         setOpaque(false); //ESSENTIAL for making container have rounded corners
         setLayout(new BorderLayout()); //helps controls layout of components
         setPreferredSize(new Dimension(350, 400));//sets size of whole container
@@ -47,7 +52,7 @@ public class RecentTransactionCont extends JPanel{
         
  
         // setting up JButton and its container
-        print_csv_btn = new JButton("Print CSV");
+        print_csv_btn = csvButton;
         JContainer btn_container = new JContainer();
         btn_container.setSize(100,100);
         print_csv_btn.setSize(new Dimension(100,50));

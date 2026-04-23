@@ -1,10 +1,9 @@
+
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-
-
-
 
 /**
  * This is an interactive conatiner where it prompts
@@ -19,22 +18,20 @@ public class InputCont extends JPanel{
         private static final ColorTheme COLOR_THEME = new ColorTheme();
 
         /** Buttons components */
-        private JButton income_btn;
-        private JButton expense_btn;
-        private JButton print_csv_btn;
-        private JButton submit = new JButton("Submit");
+        public JButton income_btn;
+        public JButton expense_btn;
+        public JButton submit = new JButton("Submit");
 
 
         /**Amount that is used for income or expense */
-        private JSpinner amount = new JSpinner(new SpinnerNumberModel(1.0,0.01, Double.MAX_VALUE,1));;
+        public JSpinner amount = new JSpinner(new SpinnerNumberModel(1.0,0.01, Double.MAX_VALUE,1));;
 
         /** text field for reasoning */
-        private JTextField reason = new JTextField(20);
+        public JTextField reason = new JTextField(20);
 
         /** text field for reasoning */
-        private JTextField items = new JTextField(20);
+        public JTextField items = new JTextField(20);
 
-        private ButtonGroup group = new ButtonGroup();
 
          /**temporary account list */
         private String [] accountNames = {"Checking","Savings","Joint"};
