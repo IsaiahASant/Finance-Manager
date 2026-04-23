@@ -1,7 +1,10 @@
+package UserInterface;
+
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import backend.ExpenseTransaction;
 
 /**
  * main container of root
@@ -42,7 +45,7 @@ public class Root extends JPanel {
         csvButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               
+                ExpenseTransaction transaction = new ExpenseTransaction();
                 System.out.println("Income btn Clicked in root !");
             }
         });
@@ -56,7 +59,7 @@ public class Root extends JPanel {
         accountsCont = new AccountsCont();
         setBackground(COLOR_THEME.PRIMARY);
 
-        JContainer contentCont = new JContainer(); //in charge of hosting rest of content
+        contentCont = new JContainer(); //in charge of hosting rest of content
      
         contentCont.setLayout(new BorderLayout());
         contentCont.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); //giving padding
