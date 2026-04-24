@@ -1,12 +1,14 @@
 import java.util.ArrayList;
 
+import backend.ExpenseTransaction;
+
 
 public class TransactionHistory {
     //instance variables for incomes and expenses
-    private ArrayList<Integer> income;
-    private ArrayList<Integer> expenses;
+    private ArrayList<IncomeTransaction> income;
+    private ArrayList<ExpenseTransaction> expenses;
 
-    public void TransactionHistory(ArrayList<Integer> income, ArrayList<Integer> expense){
+    public void TransactionHistory(ArrayList<IncomeTransaction> income, ArrayList<ExpenseTransaction> expense){
         this.income = income;
         expenses = expense;
     }
@@ -18,6 +20,15 @@ public class TransactionHistory {
     public String getExpenseTransactions(){
         return expenses.toString();
     }
+
+    public void addIncome(IncomeTransaction newIncome){
+        income.add(newIncome);
+    }
+    
+    public void addIncome(ExpenseTransaction newExpense){
+        expenses.add(newExpense);
+    }
+
 
     @Override 
     public String toString(){
