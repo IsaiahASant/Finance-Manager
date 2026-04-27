@@ -1,10 +1,9 @@
-package UserInterface;
+package components;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-import backend.ExpenseTransaction;
 
 /**
  * main container of root
@@ -45,7 +44,7 @@ public class Root extends JPanel {
         csvButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ExpenseTransaction transaction = new ExpenseTransaction();
+                //ExpenseTransaction transaction = new ExpenseTransaction();
                 System.out.println("Income btn Clicked in root !");
             }
         });

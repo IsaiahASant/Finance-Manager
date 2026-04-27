@@ -1,6 +1,5 @@
+package backend;
 import java.util.ArrayList;
-
-import backend.ExpenseTransaction;
 
 
 public class TransactionHistory {

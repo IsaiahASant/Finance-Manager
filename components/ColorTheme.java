@@ -1,3 +1,4 @@
+package components;
 import java.awt.Color; 
 /**
  * @author Isaiah Santamaria

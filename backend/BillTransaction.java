@@ -1,3 +1,4 @@
+package backend;
 import java.util.ArrayList;
 /**
  * Keeps track of the bills being paid

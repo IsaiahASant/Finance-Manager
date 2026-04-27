@@ -1,3 +1,4 @@
+package backend;
 public class IncomeTransaction {
     private int amount;
     private String source;
