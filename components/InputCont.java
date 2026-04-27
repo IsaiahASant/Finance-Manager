@@ -41,6 +41,11 @@ public class InputCont extends JPanel{
         private String [] categoryNames = {"Bills", "Shopping", "Necessities", "Utilities", "Others"};
 
 
+        
+        /** keeps track if input is isIncome Transaction or a expense Transaction */
+        boolean isIncome;
+
+
     public InputCont(){ 
         setOpaque(false);
         setPreferredSize(new Dimension(350, 400));
@@ -196,6 +201,8 @@ public class InputCont extends JPanel{
 
 
     }
+
+
 
     /**
      * display expense transaction inputs
