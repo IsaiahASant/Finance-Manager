@@ -14,12 +14,20 @@ public class csvTranslation{
     ArrayList<ExpenseTransaction> expense;
     ArrayList<IncomeTransaction> income;
 
-    //This
+    /**This initializes the instance variables
+     * 
+     * @param expenses takes the expense input and initializes it 
+     * @param incomes takes the income input and initializes it 
+    */
     public csvTranslation(ArrayList<ExpenseTransaction> expenses, ArrayList<IncomeTransaction> incomes){
         this.expense = expenses;
         this.income = incomes;
     }
-
+    /**
+     * prints the two ArrayLists into a csv file 
+     * 
+     * @param args
+    */
     public static void main(String[] args) {
 
         csvTranslation translator = new csvTranslation(expenses, incomes);
