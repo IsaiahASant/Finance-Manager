@@ -61,7 +61,7 @@ public class InputCont extends JPanel{
             setForeground(COLOR_THEME.PRIMARY);
         }};
 
-        /**adding interactive buttons */
+        /** adding interactive buttons */
         income_btn.addActionListener(new ActionListener() {
             
             @Override
@@ -70,7 +70,6 @@ public class InputCont extends JPanel{
                 System.out.println("Income btn Clicked!");
             }
         });
-
         expense_btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -78,9 +77,10 @@ public class InputCont extends JPanel{
                 System.out.println("expense btn Clicked!");
             }
         });
-        
-        displayOptions();
 
+
+        //starting off panel with start option menu
+        displayOptions();
         setVisible(true);
     }
 
@@ -173,12 +173,9 @@ public class InputCont extends JPanel{
             
             add(reason);
             
-
-            
         }});
 
         add(new JContainer(){{
-            
             
             // income transaction action listener
             submit.addActionListener(new ActionListener() {
@@ -297,7 +294,7 @@ public class InputCont extends JPanel{
                     Double storedAmount = Double.parseDouble(amount.getValue().toString());
                     String storedItems = items.getText();
                     String storedReason = reason.getText();
-                    BillTransaction bill = new BillTransaction(storedAmount, storedReason);
+                    ExpenseTransaction bill = new BillTransaction(storedAmount, storedReason);
 
                     //printing information
                     System.out.println("Expense Amount: "  + storedAmount);
@@ -305,7 +302,7 @@ public class InputCont extends JPanel{
                     System.out.println("Expense Reason: "  + storedReason);
 
                     System.out.println("Bill Object: " + bill);
-                    transactionHistory.addExpense(bill);
+                    transactionHistory.addExpense(new BillTransaction(storedAmount, storedReason));
 
                     clearInputs();
                     displayOptions();
@@ -348,10 +345,19 @@ public class InputCont extends JPanel{
         reason.setText("");
         amount.setValue(1.0);
     }
+
+    /**
+     * 
+     * @param income
+     */
     public void updateTable(IncomeTransaction income ){
 
     }
 
+    /**
+     * 
+     * @param expense
+     */
     public void updatedTable(ExpenseTransaction expense){
 
     }

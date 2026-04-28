@@ -1,19 +1,24 @@
 package backend;
+import backend.ExpenseTransaction;
 import java.util.ArrayList;
 
 
 public class TransactionHistory {
     //instance variables for incomes and expenses
-    private ArrayList<IncomeTransaction> income;
-    private ArrayList<ExpenseTransaction> expenses;
+    private ArrayList<IncomeTransaction> incomes;
+    private ArrayList<BillTransaction> expenses;
 
-    public void TransactionHistory(ArrayList<IncomeTransaction> income, ArrayList<ExpenseTransaction> expense){
-        this.income = income;
-        expenses = expense;
+    public TransactionHistory(){
+        this.incomes = new ArrayList<IncomeTransaction>();
+        this.expenses = new ArrayList<BillTransaction>();
     }
 
     public String getIncomeTransactions(){
-        return income.toString();
+        String output = "";
+        for(IncomeTransaction income : incomes){
+            output = income + " ";
+        }
+        return output;
     }
 
     public String getExpenseTransactions(){
@@ -21,14 +26,15 @@ public class TransactionHistory {
     }
 
     public void addIncome(IncomeTransaction newIncome){
-        income.add(newIncome);
+        incomes.add(newIncome);
     }
     
-    public void addIncome(ExpenseTransaction newExpense){
+    public void addExpense(BillTransaction newExpense){
         expenses.add(newExpense);
+        
     }
 
-
+   
     @Override 
     public String toString(){
         return "Income: " + getIncomeTransactions() + "\nExpenses: " + getExpenseTransactions();
