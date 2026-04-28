@@ -39,6 +39,10 @@ public class InputCont extends JPanel{
         /** String */
         private String [] categoryNames = {"Bills", "Shopping", "Necessities", "Utilities", "Others"};
 
+        /** back end components  */
+        TransactionHistory transactionHistory = new TransactionHistory();
+
+
 
     public InputCont(){ 
         setOpaque(false);
@@ -189,6 +193,7 @@ public class InputCont extends JPanel{
                     System.out.println("Income Reason: "  + storedReason);
 
                     IncomeTransaction income = new IncomeTransaction();
+                    transactionHistory.addIncome(income); //adding transaction in history
 
                     System.out.println("Income Object: " + income);
                     clearInputs(); //clears input
@@ -300,6 +305,7 @@ public class InputCont extends JPanel{
                     System.out.println("Expense Reason: "  + storedReason);
 
                     System.out.println("Bill Object: " + bill);
+                    transactionHistory.addExpense(bill);
 
                     clearInputs();
                     displayOptions();
@@ -342,7 +348,13 @@ public class InputCont extends JPanel{
         reason.setText("");
         amount.setValue(1.0);
     }
+    public void updateTable(IncomeTransaction income ){
 
+    }
+
+    public void updatedTable(ExpenseTransaction expense){
+
+    }
 
     
 
