@@ -1,5 +1,5 @@
 package components;
-
+//import backend.BillTransaction;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -128,12 +128,8 @@ public class InputCont extends JPanel{
                 setFont(new Font("Serif", Font.BOLD, 16));
                 setForeground(COLOR_THEME.QUINARY);
             }});
-            
-
-            
+               
             add(amount);
-            
-
             
         }});
         /****************Radio section that currently has a problem */
@@ -186,9 +182,22 @@ public class InputCont extends JPanel{
         add(new JContainer(){{
             
             
+            // income transaction action listener
             submit.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    Double storedAmount = Double.parseDouble(amount.getValue().toString());
+                    String storedItems = items.getText();
+                    String storedReason = reason.getText();
+
+                    System.out.println("Income Amount: "  + storedAmount);
+                    System.out.println("Income Items: "   + storedItems);
+                    System.out.println("Income Reason: "  + storedReason);
+
+                    BillTransaction bill = new BillTransaction(storedAmount, storedReason);
+
+                    System.out.println("Bill Object: " + bill);
+                    clearInputs(); //clears input
                     displayOptions();
                     System.out.println("submit income btn Clicked!");
                 }
@@ -284,11 +293,25 @@ public class InputCont extends JPanel{
         }});
 
         add(new JContainer(){{
-            
-            
-            submit.addActionListener(new ActionListener() {
+            // Storage variables for input values
+            final String[] storedAmount = {""};
+            final String[] storedItems  = {""};
+            final String[] storedReason = {""};
+            //action listener trigger for expense transaction
+            submit.addActionListener(new ActionListener() {   
+
                 @Override
                 public void actionPerformed(ActionEvent e) {
+
+                    storedAmount[0] = amount.getValue().toString();
+                    storedItems[0]  = items.getText();
+                    storedReason[0] = reason.getText();
+
+                    System.out.println("Expense Amount: " + storedAmount[0]);
+                    System.out.println("Expense Items: "  + storedItems[0]);
+                    System.out.println("Expense Reason: " + storedReason[0]);
+                    
+                    clearInputs();
                     displayOptions();
                     System.out.println("submit expense btn Clicked!");
                 }
@@ -322,6 +345,12 @@ public class InputCont extends JPanel{
         }});
         
 
+    }
+
+    private void clearInputs(){
+        items.setText("");
+        reason.setText("");
+        amount.setValue(1.0);
     }
 
 
