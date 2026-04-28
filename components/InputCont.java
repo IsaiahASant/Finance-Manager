@@ -23,7 +23,6 @@ public class InputCont extends JPanel{
         public JButton expense_btn;
         public JButton submit = new JButton("Submit");
 
-
         /**Amount that is used for income or expense */
         public JSpinner amount = new JSpinner(new SpinnerNumberModel(1.0,0.01, Double.MAX_VALUE,1));;
 
@@ -39,11 +38,6 @@ public class InputCont extends JPanel{
 
         /** String */
         private String [] categoryNames = {"Bills", "Shopping", "Necessities", "Utilities", "Others"};
-
-
-        
-        /** keeps track if input is isIncome Transaction or a expense Transaction */
-        boolean isIncome;
 
 
     public InputCont(){ 
@@ -142,7 +136,7 @@ public class InputCont extends JPanel{
             //add(amount);
 
             add(new JComponent(){{
-                setLayout(new BorderLayout());
+                setLayout(new FlowLayout());
                 for(String str : categoryNames){
                     add(new JRadioButton(str));
                 }
@@ -194,9 +188,9 @@ public class InputCont extends JPanel{
                     System.out.println("Income Items: "   + storedItems);
                     System.out.println("Income Reason: "  + storedReason);
 
-                    BillTransaction bill = new BillTransaction(storedAmount, storedReason);
+                    IncomeTransaction income = new IncomeTransaction();
 
-                    System.out.println("Bill Object: " + bill);
+                    System.out.println("Income Object: " + income);
                     clearInputs(); //clears input
                     displayOptions();
                     System.out.println("submit income btn Clicked!");
@@ -237,12 +231,8 @@ public class InputCont extends JPanel{
                 setFont(new Font("Serif", Font.BOLD, 16));
                 setForeground(COLOR_THEME.QUINARY);
             }});
-            
-
-            
+                
             add(amount);
-            
-
             
         }});
         /****************Radio section that currently has a problem */
@@ -275,8 +265,6 @@ public class InputCont extends JPanel{
 
             add(items);
             
-
-            
         }});
         add(new JContainer(){{
             
@@ -287,8 +275,6 @@ public class InputCont extends JPanel{
             }});
             
             add(reason);
-            
-
             
         }});
 
@@ -302,15 +288,19 @@ public class InputCont extends JPanel{
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    //declaring data types/object 
+                    Double storedAmount = Double.parseDouble(amount.getValue().toString());
+                    String storedItems = items.getText();
+                    String storedReason = reason.getText();
+                    BillTransaction bill = new BillTransaction(storedAmount, storedReason);
 
-                    storedAmount[0] = amount.getValue().toString();
-                    storedItems[0]  = items.getText();
-                    storedReason[0] = reason.getText();
+                    //printing information
+                    System.out.println("Expense Amount: "  + storedAmount);
+                    System.out.println("Expense Items: "   + storedItems);
+                    System.out.println("Expense Reason: "  + storedReason);
 
-                    System.out.println("Expense Amount: " + storedAmount[0]);
-                    System.out.println("Expense Items: "  + storedItems[0]);
-                    System.out.println("Expense Reason: " + storedReason[0]);
-                    
+                    System.out.println("Bill Object: " + bill);
+
                     clearInputs();
                     displayOptions();
                     System.out.println("submit expense btn Clicked!");
