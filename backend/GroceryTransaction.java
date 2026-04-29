@@ -11,16 +11,17 @@ import java.util.ArrayList;
 public class GroceryTransaction implements ExpenseTransaction{
     private String ID;
     private String reason;
-    private int amount;
+    private double amount;
+    ArrayList<String> GroceryList;
 
-    //* unique list speficialy for this object */
-    private ArrayList<String> list; 
 
-    public GroceryTransaction(int amount, String reason){
+
+
+    public GroceryTransaction(double amount, String reason){
         this.reason = reason;
         this.amount = amount;
-
-        list = new ArrayList<String>();
+        GroceryList = new ArrayList<>();
+        this.ID = TransactionID.generateId();
 
     }
 
@@ -36,7 +37,7 @@ public class GroceryTransaction implements ExpenseTransaction{
      * @return amount
      */
     @Override
-    public int getAmount(){
+    public double getAmount(){
         return amount;
     }
 
@@ -62,8 +63,10 @@ public class GroceryTransaction implements ExpenseTransaction{
      * @param food
      */
     public void addList(String food){
-        if(false){ //validates if string is a food <<<<<< Maybe we can use an API to validate if a string is a food>>>>>>>>>>>
-            list.add(food);
+        if(true){ //validates if string is a food <<<<<< Maybe we can use an API to validate if a string is a food>>>>>>>>>>>
+
+            
+            System.out.println("IDK");
         }else{
             System.out.println("This is not a food");
         }

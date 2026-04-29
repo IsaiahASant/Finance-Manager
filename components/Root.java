@@ -1,11 +1,10 @@
 package components;
 
-import backend.*;
-
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * main container of root
@@ -23,7 +22,11 @@ public class Root extends JPanel {
     public JContainer contentCont;
 
     /** setting up buttons to be mainupliated here */
-    JButton csvButton = new JButton("Print");
+    public JButton csvButton = new JButton("Print");
+    public JTable table = new JTable();
+
+    /** Testing */
+    public DefaultTableModel tableModel = new DefaultTableModel(0, 0); ;
     
 
     /** Temporary holder for transaction */
@@ -46,8 +49,8 @@ public class Root extends JPanel {
         csvButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ExpenseTransaction transaction = new BillTransaction(1000, "IDK");
-                System.out.println(transaction);
+                //ExpenseTransaction transaction = new BillTransaction(1000, "IDK", "Eletric");
+                //System.out.println(transaction);
                 System.out.println("Income btn Clicked in root !");
             }
         });
@@ -56,9 +59,9 @@ public class Root extends JPanel {
 
 
 
-        recentTransaction = new RecentTransactionCont(csvButton); 
+        recentTransaction = new RecentTransactionCont(csvButton, tableModel); 
         BANNER = new Banner();
-        inputCont = new InputCont();
+        inputCont = new InputCont(tableModel);
         accountsCont = new AccountsCont();
         setBackground(COLOR_THEME.PRIMARY);
 
@@ -80,14 +83,8 @@ public class Root extends JPanel {
             
             add(accountsCont, "South");
         }}, BorderLayout.NORTH);
-
         
         add(contentCont, BorderLayout.CENTER); // stretches to fill remaining space
-
-        
-        
-        
-        
         
         setVisible(true);
         

@@ -1,5 +1,4 @@
 package backend;
-import java.util.ArrayList;
 /**
  * Keeps track of the bills being paid
  * 
@@ -9,19 +8,19 @@ import java.util.ArrayList;
  */
 
 public class BillTransaction implements ExpenseTransaction{
-    private String source;
-    private String transactionId;
+    private String destination;
+    private String ID;
     private String reason;
-    private int amount;
+    private double amount;
 
-    //* unique list speficialy for this object */
-    private ArrayList<String> list; 
+ 
 
-    public BillTransaction(int amount, String reason){
+    public BillTransaction(double amount, String reason, String destination){
         this.reason = reason;
         this.amount = amount;
+        this.ID = TransactionID.generateId();
+        this.destination = destination;
 
-        list = new ArrayList<String>();
 
     }
 
@@ -37,7 +36,7 @@ public class BillTransaction implements ExpenseTransaction{
      * @return amount
      */
     @Override
-    public int getAmount(){
+    public double getAmount(){
         return amount;
     }
     /**
@@ -45,7 +44,7 @@ public class BillTransaction implements ExpenseTransaction{
      */
     @Override
     public String getTransactionId(){
-        return transactionId;
+        return ID;
     }
 
 

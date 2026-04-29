@@ -12,16 +12,16 @@ public class ShoppingTransaction implements ExpenseTransaction{
     private ArrayList<String> items;
     private String ID;
     private String reason;
-    private int amount;
+    private double amount;
 
     //* unique list speficialy for this object */
-    private ArrayList<String> list; 
+    private String shoppingList; 
 
-    public ShoppingTransaction(int amount, String reason){
+    public ShoppingTransaction(double amount, String reason, String items){
       this.amount = amount;
       this.reason = reason;
-
-      list = new ArrayList<String>();
+      this.shoppingList = items;
+      this.ID = TransactionID.generateId();
 
     }
 
@@ -37,10 +37,9 @@ public class ShoppingTransaction implements ExpenseTransaction{
      * @return amount
      */
     @Override
-    public int getAmount(){
+    public double getAmount(){
         return amount;
     }
-
 
     /**
      * 
@@ -52,29 +51,21 @@ public class ShoppingTransaction implements ExpenseTransaction{
 
     /**
      * 
+     * @return shopping type of obect
+     */
+    public String getType(){
+        return "Shopping";
+    }
+
+    
+    /**
+     * 
      */
     @Override
     public String getTransactionId(){
         return "";
     }
 
-    /**
-     * adds food list into list
-     * @param food
-     */
     
-
-    
-    /**
-     * 
-     * @param list
-     */
-    public void addItems(String item){
-        list.add(item);
-    }
-
-
-
-
 
 }

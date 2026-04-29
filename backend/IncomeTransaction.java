@@ -2,20 +2,20 @@ package backend;
 public class IncomeTransaction {
     private int amount;
     private String source;
-    private String transactionId;
+    private String ID;
     private double tax; 
     private double afterTax;
 
     public IncomeTransaction() {
         this.amount = 0;
         this.source = "Unkown";
-        this.transactionId = "N/A";
+        this.ID = "N/A";
     }
 
-    public IncomeTransaction( int amount, String source, String transactionId) {
+    public IncomeTransaction( int amount, String source) {
         this.amount = amount;
         this.source = source;
-        this.transactionId = transactionId;
+        this.ID = TransactionID.generateId();
     }
 
     public int getAmount() {
@@ -27,7 +27,7 @@ public class IncomeTransaction {
     }
 
     public String getTransactionId() {
-        return transactionId;
+        return ID;
     }
 
     public void setAmount(int amount) {
@@ -46,7 +46,7 @@ public class IncomeTransaction {
     }
 
     public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
+        this.ID = transactionId;
     }
 
     public void nyTax() {
@@ -60,7 +60,7 @@ public class IncomeTransaction {
     }
 
     public void displayTransaction() {
-        System.out.println("Transaction ID: " + transactionId);
+        System.out.println("Transaction ID: " + ID);
         System.out.println("Source: " + source);
         System.out.println("Amount: $" + amount);
     }
@@ -68,7 +68,7 @@ public class IncomeTransaction {
      @Override
     public String toString() {
         return "IncomeTransaction{" +
-                "transactionId='" + transactionId + '\'' +
+                "transactionId='" + ID + '\'' +
                 ", source='" + source + '\'' +
                 ", amount=" + amount +
                 '}';

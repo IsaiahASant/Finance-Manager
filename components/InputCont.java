@@ -1,10 +1,10 @@
 package components;
-//import backend.BillTransaction;
-
+import backend.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * This is an interactive conatiner where it prompts
@@ -32,19 +32,21 @@ public class InputCont extends JPanel{
         /** text field for reasoning */
         public JTextField items = new JTextField(20);
 
+        /** keeps track of what radio button is being selected for creating income/expense objects */
+        private String selectedRadio;
 
          /**temporary account list */
         private String [] accountNames = {"Checking","Savings","Joint"};
 
         /** String */
-        private String [] categoryNames = {"Bills", "Shopping", "Necessities", "Utilities", "Others"};
+        private String [] categoryNames = {"Bills", "Shopping", "Groceries", "Others"};
 
         /** back end components  */
         TransactionHistory transactionHistory = new TransactionHistory();
 
 
 
-    public InputCont(){ 
+    public InputCont(DefaultTableModel tableModel){ 
         setOpaque(false);
         setPreferredSize(new Dimension(350, 400));
         //setLayout(new GridBagLayout()); //helps center components automaticallly
@@ -61,7 +63,7 @@ public class InputCont extends JPanel{
             setForeground(COLOR_THEME.PRIMARY);
         }};
 
-        /** adding interactive buttons */
+        /**adding interactive buttons */
         income_btn.addActionListener(new ActionListener() {
             
             @Override
@@ -70,6 +72,7 @@ public class InputCont extends JPanel{
                 System.out.println("Income btn Clicked!");
             }
         });
+
         expense_btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -77,10 +80,9 @@ public class InputCont extends JPanel{
                 System.out.println("expense btn Clicked!");
             }
         });
-
-
-        //starting off panel with start option menu
+        
         displayOptions();
+
         setVisible(true);
     }
 
@@ -141,8 +143,21 @@ public class InputCont extends JPanel{
 
             add(new JComponent(){{
                 setLayout(new FlowLayout());
-                for(String str : categoryNames){
-                    add(new JRadioButton(str));
+                ButtonGroup group = new ButtonGroup(); //prevents from more that one radio is being selected
+                for(String str : accountNames){
+                    JRadioButton radio = new JRadioButton(str);
+                    group.add(radio);
+                    radio.addActionListener(new ActionListener(){
+                        @Override
+                        public void actionPerformed(ActionEvent e){
+                            selectedRadio = str;
+                            System.out.println("Selcted radio: " + selectedRadio);
+                            System.out.println(str + " Button is pressed: ");
+
+                        }
+                    });
+
+                    add(radio);
                 }
             }});
             
@@ -173,9 +188,12 @@ public class InputCont extends JPanel{
             
             add(reason);
             
+
+            
         }});
 
         add(new JContainer(){{
+            
             
             // income transaction action listener
             submit.addActionListener(new ActionListener() {
@@ -247,9 +265,23 @@ public class InputCont extends JPanel{
             //add(amount);
 
             add(new JComponent(){{
-                setLayout(new BorderLayout());
+                setLayout(new FlowLayout());
+                ButtonGroup group = new ButtonGroup(); //prevents more that one button is being clicked
+
+
                 for(String str : categoryNames){
-                    add(new JRadioButton(str));
+                    JRadioButton radio = new JRadioButton(str);
+                    group.add(radio);
+                    radio.addActionListener(new ActionListener(){
+                        @Override
+                        public void actionPerformed(ActionEvent e){
+                            selectedRadio = str;
+                            System.out.println("Selcted radio: " + selectedRadio);
+                            System.out.println(str + " Button is pressed");
+                        }
+                    });
+
+                    add(radio);
                 }
             }});
             
@@ -294,7 +326,7 @@ public class InputCont extends JPanel{
                     Double storedAmount = Double.parseDouble(amount.getValue().toString());
                     String storedItems = items.getText();
                     String storedReason = reason.getText();
-                    ExpenseTransaction bill = new BillTransaction(storedAmount, storedReason);
+                    ExpenseTransaction bill = new BillTransaction(storedAmount, storedReason, "Water");
 
                     //printing information
                     System.out.println("Expense Amount: "  + storedAmount);
@@ -302,7 +334,7 @@ public class InputCont extends JPanel{
                     System.out.println("Expense Reason: "  + storedReason);
 
                     System.out.println("Bill Object: " + bill);
-                    transactionHistory.addExpense(new BillTransaction(storedAmount, storedReason));
+                    transactionHistory.addExpense(bill);
 
                     clearInputs();
                     displayOptions();
@@ -345,19 +377,10 @@ public class InputCont extends JPanel{
         reason.setText("");
         amount.setValue(1.0);
     }
-
-    /**
-     * 
-     * @param income
-     */
     public void updateTable(IncomeTransaction income ){
-
+        
     }
 
-    /**
-     * 
-     * @param expense
-     */
     public void updatedTable(ExpenseTransaction expense){
 
     }

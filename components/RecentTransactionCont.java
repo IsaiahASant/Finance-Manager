@@ -30,14 +30,14 @@ public class RecentTransactionCont extends JPanel{
      * 
      * @param csvButton
      */
-    public RecentTransactionCont(JButton csvButton){
+    public RecentTransactionCont(JButton csvButton, DefaultTableModel tableMode){
         setOpaque(false); //ESSENTIAL for making container have rounded corners
         setLayout(new BorderLayout()); //helps controls layout of components
         setPreferredSize(new Dimension(350, 400));//sets size of whole container
         setBorder(BorderFactory.createEmptyBorder(20,20,20,20)); //10 pixels of padding in each side of container
 
-        tableModel = new DefaultTableModel(columns, 0);
-        table = new JTable(tableModel);
+        this.tableModel = new DefaultTableModel(columns, 0);
+        table = new JTable(this.tableModel);
         table.setSize(new Dimension(250, 250));
         table.setForeground(COLOR_THEME.QUATERNARY); //setting all foregrounds colors
        
