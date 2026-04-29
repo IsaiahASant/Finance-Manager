@@ -32,7 +32,7 @@ public class csvTranslation{
 
         csvTranslation translator = new csvTranslation(expenses, incomes);
 
-        try (FileWriter fw = new FileWriter("Output.csv")) {
+        try (FileWriter fw = new FileWriter("EveryTransaction.csv")) {
 
         fw.println("Expenses,Income");
 
