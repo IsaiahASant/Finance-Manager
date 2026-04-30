@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * 
  */
 
-public class ShoppingTransaction implements Transaction{
+public class ShoppingTransaction extends ExpenseTransaction implements Transaction{
     private ArrayList<String> items;
     private String ID;
     private String reason;
@@ -18,8 +18,7 @@ public class ShoppingTransaction implements Transaction{
     private String shoppingList; 
 
     public ShoppingTransaction(double amount, String reason, String items){
-      this.amount = amount;
-      this.reason = reason;
+      super(amount, reason);
       this.shoppingList = items;
       this.ID = TransactionID.generateId();
 
@@ -46,7 +45,7 @@ public class ShoppingTransaction implements Transaction{
      */
     @Override
     public String toString(){
-        return "Paid the " + reason + "bill totaling " + amount + " dollars.";
+        return super.toString();
     }
 
     /**
@@ -63,7 +62,7 @@ public class ShoppingTransaction implements Transaction{
      */
     @Override
     public String getTransactionId(){
-        return "";
+        return ID;
     }
 
     

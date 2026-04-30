@@ -7,7 +7,7 @@ package backend;
  * 
  */
 
-public class BillTransaction implements Transaction{
+public class BillTransaction extends ExpenseTransaction implements Transaction{
     private String destination;
     private String ID;
     private String reason;
@@ -16,12 +16,9 @@ public class BillTransaction implements Transaction{
  
 
     public BillTransaction(double amount, String reason, String destination){
-        this.reason = reason;
-        this.amount = amount;
+        super(amount, reason);
         this.ID = TransactionID.generateId();
         this.destination = destination;
-
-
     }
 
     /**
@@ -53,13 +50,9 @@ public class BillTransaction implements Transaction{
      */
     @Override
     public String toString(){
-        return "Paid the " + reason + "bill totaling " + amount + " dollars.";
+        return super.toString();
     }
 
-    /**
-     * adds food list into list
-     * @param food
-     */
   
 
     }
