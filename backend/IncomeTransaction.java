@@ -1,6 +1,6 @@
 package backend;
-public class IncomeTransaction {
-    private int amount;
+public class IncomeTransaction implements Transaction {
+    private double amount;
     private String source;
     private String ID;
     private double tax; 
@@ -12,20 +12,28 @@ public class IncomeTransaction {
         this.ID = TransactionID.generateId();
     }
 
-    public IncomeTransaction( int amount, String source) {
+    public IncomeTransaction( double amount, String source) {
         this.amount = amount;
         this.source = source;
         this.ID = TransactionID.generateId();
     }
-
-    public int getAmount() {
+    @Override
+    public double getAmount() {
         return amount;
     }
 
-    public String getSoruce() {
+    @Override
+    public String getReason(){
+        return "";
+
+    }
+
+    public String getSource() {
         return source;
     }
 
+
+    @Override
     public String getTransactionId() {
         return ID;
     }
@@ -34,6 +42,8 @@ public class IncomeTransaction {
         if(amount >= 0) this.amount = amount;
         else System.out.println("Amount cannot be a negative amount");
     }
+
+
 
     public void setSource(String source) {
         if (source.equalsIgnoreCase("work") || 
@@ -45,9 +55,16 @@ public class IncomeTransaction {
         }
     }
 
+
+
+
     public void setTransactionId(String transactionId) {
         this.ID = transactionId;
     }
+
+
+
+
 
     public void nyTax() {
         if (source.equalsIgnoreCase("work")){

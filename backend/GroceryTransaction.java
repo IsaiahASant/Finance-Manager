@@ -9,7 +9,7 @@ import java.util.Date;
  * 
  */
 
-public class GroceryTransaction implements ExpenseTransaction{
+public class GroceryTransaction implements Transaction{
     private String ID;
     private String reason;
     private double amount;
@@ -32,9 +32,8 @@ public class GroceryTransaction implements ExpenseTransaction{
     /**
      * @return date
      */
-    @Override
     public String getDate(){
-        return date;
+        return "date";
     }
 
     /**
@@ -82,4 +81,5 @@ public class GroceryTransaction implements ExpenseTransaction{
         }
 
     }
+}
 

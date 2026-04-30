@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * 
  */
 
-public class ShoppingTransaction implements ExpenseTransaction{
+public class ShoppingTransaction implements Transaction{
     private ArrayList<String> items;
     private String ID;
     private String reason;

@@ -369,13 +369,13 @@ public JSpinner dateSpinner = new JSpinner(new SpinnerDateModel());
                     SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
                     String formattedDate = sdf.format(storedDate);
 
-                    ExpenseTransaction transaction;
+                    Transaction transaction;
 
                     if(category.equals("Bills")){
                         transaction = new BillTransaction(storedAmount, storedReason, "Joint Account");
 
                     }else if(category.equals("Groceries")){
-                        transaction = new GroceryTransaction(storedAmount, storedReason);
+                        transaction = new GroceryTransaction(storedAmount, storedReason, storedDate);
 
                     }else if(category.equals("Shopping")){
                         transaction = new ShoppingTransaction(storedAmount, storedReason, "Checking Account");

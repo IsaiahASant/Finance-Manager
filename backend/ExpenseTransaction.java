@@ -1,17 +1,38 @@
 package backend;
 /**
- * Author: Isaiah Santamaria, Sean Powers
- * Version: 4/15/2026
+ * this classes is used so that other expenses can built on top of
+ * this class
+ * @author Isaiah Santamaria
+ * @version 4/30/2026
+ * 
  */
-public interface ExpenseTransaction{
-    
-    /** get reasoning from the object of the text input*/
-    public String getReason();
-    /** get the amount of transaction */
-    public double getAmount();
-    /** toString() method*/
-    public String getTransactionId();
+public abstract class ExpenseTransaction{
+    private double amount;
+    private String reason;
+    private String ID;  
+
+    /**
+     * 
+     * @param amount
+     * @param reason
+     */
+    public ExpenseTransaction(Double amount, String reason){
+        this.amount = amount;
+        this.reason = reason; 
+        this.ID = TransactionID.generateId();
+    }
+
+    /**
+     * returns the content of the object
+     * @return the content of the object
+     */
     @Override
-    public String toString();
+    public String toString(){
+        return "Transaction Type: expense \nAmount: " + 
+         amount + "\nReason: " + reason + "\nID: " + ID; 
+    }
+    
+    
+
 
 }
