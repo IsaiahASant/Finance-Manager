@@ -20,7 +20,7 @@ public class AccountsChart extends JPanel{
     private double checkingBalance;
     private double savingsBalance; 
     private double jointBalance;
-
+    private Thread refreshThread;
 
     public AccountsChart(){
         setPreferredSize(new Dimension(300, 300));
@@ -28,7 +28,25 @@ public class AccountsChart extends JPanel{
         setBorder(BorderFactory.createLineBorder(Color.black));
     }
     
+    public void refreshChart(){
+        boolean running = true;
 
+        refreshThread = new Thread(() -> {
+        while (running){
+            checkingBalance += 0; //new entryreplace with new data
+            savingsBalance += 0; //new entryreplace with new data
+            jointBalance += 0; //new entryreplace with new data
 
+            SwingUtilities.invokeLater(() -> {
+                repaint();
+            });
 
+            try { Thread.sleep(2000);
+                
+            } catch (Exception e) {
+                Thread.currentThread().interrupt();
+            }}
+        });
+    }
 }
+
