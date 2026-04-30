@@ -124,7 +124,7 @@ public class RecentTransactionCont extends JPanel{
      */
     public void addIncomeTransaction(double amount, String account, String source) {
         String display = "+" + amount; 
-        tableModel.addRow(new Object[]{display, "Income", source, account, new java.util.Date().toString().substring(0,10)});
+        tableModel.addRow(new Object[]{display, "Income", source , account, new java.util.Date().toString().substring(0,10)});
     }
 
 
@@ -135,7 +135,7 @@ public class RecentTransactionCont extends JPanel{
      */
     public void addExpenseTransaction(double amount, String category, String account, String items) {
         String display = "-" + amount; 
-        tableModel.addRow(new Object[]{display, "Expense", items, category, new java.util.Date().toString().substring(0,10)});
+        tableModel.addRow(new Object[]{display, "Expense", category, account, new java.util.Date().toString().substring(0,10)});
     }
 
     //makes components rounded corners

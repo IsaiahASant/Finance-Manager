@@ -52,7 +52,7 @@ public class InputCont extends JPanel{
         private String [] accountNames = {"Checking","Savings","Joint"};
 
         /** String */
-        private String [] categoryNames = {"Bills", "Shopping", "Groceries", "Betting"};
+        private String [] categoryNames = {"Bills", "Shopping", "Groceries"};
 
         private String [] sourceNames = {"work", "gift", "lottery"};
 
@@ -287,8 +287,7 @@ public class InputCont extends JPanel{
      * when submit button is clicked, it goes back to menu 
      * options
      */
-    private void displayExpense(){
-        
+    private void displayExpense(){       
         clearPanel();
         setLayout(new GridLayout(7,1));
         setBorder(BorderFactory.createEmptyBorder(0,10,10,10)); //10 pixels of padding in each side of container
@@ -425,7 +424,7 @@ public class InputCont extends JPanel{
 
                     // Update RecentTransactionCont table
                     if (recentTransactionCont != null) {
-                        recentTransactionCont.addExpenseTransaction(storedAmount, category, "Checking", storedItems);
+                        recentTransactionCont.addExpenseTransaction(storedAmount, category, "Checking", category);
                     }
 
                     // Update AccountsCont balance (expense = subtract from Checking by default)
@@ -444,6 +443,9 @@ public class InputCont extends JPanel{
         }});
  
     }
+
+
+
 
     /**
      * clears main panel
