@@ -21,8 +21,7 @@ public class GroceryTransaction extends ExpenseTransaction implements Transactio
 
 
     public GroceryTransaction(double amount, String reason,Date date){
-        this.reason = reason;
-        this.amount = amount;
+        super(amount, reason);
         GroceryList = new ArrayList<>();
         this.ID = TransactionID.generateId();
 
@@ -58,7 +57,7 @@ public class GroceryTransaction extends ExpenseTransaction implements Transactio
      */
     @Override
     public String toString(){
-        return "Paid the " + reason + "bill totaling " + amount + " dollars." ;
+        return super.toString();
     }
 
     /**
@@ -69,17 +68,5 @@ public class GroceryTransaction extends ExpenseTransaction implements Transactio
         return ID;
     }
 
-    /**
-     * adds food list into list
-     * @param food
-     */
-    public void addList(String food){
-        if(true){ //validates if string is a food <<<<<< Maybe we can use an API to validate if a string is a food>>>>>>>>>>>        
-            System.out.println("IDK");
-        }else{
-            System.out.println("This is not a food");
-        }
-
-    }
 }
 
