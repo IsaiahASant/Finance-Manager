@@ -63,6 +63,10 @@ public class Root extends JPanel {
         BANNER = new Banner();
         inputCont = new InputCont(tableModel);
         accountsCont = new AccountsCont();
+
+        // Inject sibling references into InputCont so it can update the other panels on submit
+        inputCont.recentTransactionCont = recentTransaction;
+        inputCont.accountsCont = accountsCont;
         setBackground(COLOR_THEME.PRIMARY);
 
         contentCont = new JContainer(); //in charge of hosting rest of content

@@ -15,7 +15,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 
-
 public class RecentTransactionCont extends JPanel{
 
     private static final ColorTheme COLOR_THEME = new ColorTheme();
@@ -36,18 +35,15 @@ public class RecentTransactionCont extends JPanel{
         setPreferredSize(new Dimension(350, 400));//sets size of whole container
         setBorder(BorderFactory.createEmptyBorder(20,20,20,20)); //10 pixels of padding in each side of container
 
-        this.tableModel = new DefaultTableModel(columns, 0);
+        // Use the SHARED tableModel passed in from Root, set columns on it
+        this.tableModel = tableMode;
+        this.tableModel.setColumnIdentifiers(columns);
         table = new JTable(this.tableModel);
-        table.setSize(new Dimension(250, 250));
+        table.setSize(new Dimension(280, 250));
         table.setForeground(COLOR_THEME.QUATERNARY); //setting all foregrounds colors
        
        
-        //adding data to make table visible and testing purposes
-        for(int  i = 0; i < 10; i ++){
-            tableModel.addRow(data[0]);
-        }
-        //adding one expense for testing
-        tableModel.addRow(dataTwo);
+        // No hardcoded test rows — table is populated via addTransaction()
         
  
         // setting up JButton and its container
@@ -99,7 +95,7 @@ public class RecentTransactionCont extends JPanel{
 
         //********** adding components to main JPanel ************/
 
-        add(new JLabel("Recent Transaction History\\"){{
+        add(new JLabel("Recent Transaction History"){{
             setFont(new Font("Brush Script MT", Font.PLAIN, 20));
             setForeground(COLOR_THEME.QUINARY);
             setBorder(BorderFactory.createEmptyBorder(4,0,10,0)); //10 pixels of padding in each side of container
@@ -117,6 +113,26 @@ public class RecentTransactionCont extends JPanel{
         }}, "South");
 
         setVisible(true);
+    }
+
+
+    /**
+     * Adds an income row to the transaction table.
+     * Called by InputCont when the income submit button is pressed.
+     */
+    public void addIncomeTransaction(double amount, String account, String items, String reason) {
+        String display = String.format("+%.2f", amount);
+        tableModel.addRow(new Object[]{display, "Income", items, account, new java.util.Date().toString().substring(0,10)});
+    }
+
+
+    /**
+     * Adds an expense row to the transaction table.
+     * Called by InputCont when the expense submit button is pressed.
+     */
+    public void addExpenseTransaction(double amount, String category, String account, String items) {
+        String display = String.format("-%.2f", amount);
+        tableModel.addRow(new Object[]{display, "Expense", items, category, new java.util.Date().toString().substring(0,10)});
     }
 
     //makes components rounded corners

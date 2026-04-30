@@ -3,8 +3,11 @@ import backend.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.Date;
 
 /**
  * This is an interactive conatiner where it prompts
@@ -24,7 +27,10 @@ public class InputCont extends JPanel{
         public JButton submit = new JButton("Submit");
 
         /**Amount that is used for income or expense */
-        public JSpinner amount = new JSpinner(new SpinnerNumberModel(1.0,0.01, Double.MAX_VALUE,1));;
+        public JSpinner amount = new JSpinner(new SpinnerNumberModel(0.0,0.00, Double.MAX_VALUE,1));;
+
+        // near your other field declarations
+public JSpinner dateSpinner = new JSpinner(new SpinnerDateModel());
 
         /** text field for reasoning */
         public JTextField reason = new JTextField(20);
@@ -35,23 +41,31 @@ public class InputCont extends JPanel{
         /** keeps track of what radio button is being selected for creating income/expense objects */
         private String selectedRadio;
 
-         /**temporary account list */
+         /** temporary account list */
         private String [] accountNames = {"Checking","Savings","Joint"};
 
         /** String */
-        private String [] categoryNames = {"Bills", "Shopping", "Groceries", "Others"};
+        private String [] categoryNames = {"Bills", "Shopping", "Groceries", "Betting"};
 
         /** back end components  */
         TransactionHistory transactionHistory = new TransactionHistory();
 
-
+        /** References to sibling panels for cross-component updates */
+        public RecentTransactionCont recentTransactionCont;
+        public AccountsCont accountsCont;
 
     public InputCont(DefaultTableModel tableModel){ 
+        this(tableModel, null, null);
+    }
+
+    public InputCont(DefaultTableModel tableModel, RecentTransactionCont recentTransactionCont, AccountsCont accountsCont){
+        this.recentTransactionCont = recentTransactionCont;
+        this.accountsCont = accountsCont;
         setOpaque(false);
         setPreferredSize(new Dimension(350, 400));
         //setLayout(new GridBagLayout()); //helps center components automaticallly
     
-        /**Styling Buttons */
+        /** Styling Buttons */
         income_btn = new JButton("Income"){{
             setPreferredSize(new Dimension(100,50));
             setBackground(COLOR_THEME.QUATERNARY);
@@ -112,10 +126,10 @@ public class InputCont extends JPanel{
      */
     private void displayIncome(){
         clearPanel();
-        setLayout(new GridLayout(6,1));
+        setLayout(new GridLayout(7,1));
         setBorder(BorderFactory.createEmptyBorder(0,20,40,20)); //10 pixels of padding in each side of container
 
-        add(new JLabel("Income Transaction\\"){{
+        add(new JLabel("Income Transaction"){{
             setFont(new Font("Brush Script MT", Font.PLAIN, 20));
             setForeground(COLOR_THEME.QUINARY);
 
@@ -135,7 +149,7 @@ public class InputCont extends JPanel{
         /****************Radio section that currently has a problem */
         add(new JContainer(){{
             amount.setPreferredSize(new Dimension(100,25));
-            add(new JLabel("Source: "){{
+            add(new JLabel("Category: "){{
                 setFont(new Font("Serif", Font.BOLD, 16));
                 setForeground(COLOR_THEME.QUINARY);
             }});
@@ -167,34 +181,32 @@ public class InputCont extends JPanel{
         add(new JContainer(){{
             
             amount.setPreferredSize(new Dimension(100,25));
-            add(new JLabel("Items: "){{
+            add(new JLabel("Source(Where is it coming from?): "){{
                 setFont(new Font("Serif", Font.BOLD, 16));
                 setForeground(COLOR_THEME.QUINARY);
             }});
            
-
-            add(items);
-            
-
-            
+            add(items);      
         }});
+
         add(new JContainer(){{
-            
-            amount.setPreferredSize(new Dimension(100,25));
-            add(new JLabel("Reason: "){{
+            add(new JLabel("Date: "){{
                 setFont(new Font("Serif", Font.BOLD, 16));
                 setForeground(COLOR_THEME.QUINARY);
             }});
-            
-            add(reason);
-            
-
-            
+            JSpinner.DateEditor dateEditor = new JSpinner.DateEditor(dateSpinner, "MM/dd/yyyy");
+            dateSpinner.setEditor(dateEditor);
+            dateSpinner.setPreferredSize(new Dimension(120, 25));
+            add(dateSpinner);
         }});
 
         add(new JContainer(){{
             
-            
+            // Remove any previously attached listeners to prevent duplicate firings
+            for (ActionListener al : submit.getActionListeners()) {
+                submit.removeActionListener(al);
+            }
+
             // income transaction action listener
             submit.addActionListener(new ActionListener() {
                 @Override
@@ -202,30 +214,44 @@ public class InputCont extends JPanel{
                     Double storedAmount = Double.parseDouble(amount.getValue().toString());
                     String storedItems = items.getText();
                     String storedReason = reason.getText();
+                    String account = (selectedRadio != null) ? selectedRadio : "Checking";
+                    Date storedDate = (Date) dateSpinner.getValue();
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+                    String formattedDate = sdf.format(storedDate);
+                    
 
                     System.out.println("Income Amount: "  + storedAmount);
                     System.out.println("Income Items: "   + storedItems);
                     System.out.println("Income Reason: "  + storedReason);
+                    System.out.println("Income Account: " + account);
+                    System.out.println("Income Date: " + formattedDate);
 
                     IncomeTransaction income = new IncomeTransaction();
-                    transactionHistory.addIncome(income); //adding transaction in history
+                    transactionHistory.addIncome(income);
+
+                    // Update RecentTransactionCont table
+                    if (recentTransactionCont != null) {
+                        recentTransactionCont.addIncomeTransaction(storedAmount, account, storedItems, storedReason);
+                    }
+
+                    // Update AccountsCont balance
+                    if (accountsCont != null) {
+                        accountsCont.updateBalance(account, storedAmount);
+                    }
 
                     System.out.println("Income Object: " + income);
-                    clearInputs(); //clears input
+                    clearInputs();
                     displayOptions();
                     System.out.println("submit income btn Clicked!");
                 }
-            });
-            
-            add(submit);
-               
+            });          
+            add(submit);         
         }});
 
-
+        
 
     }
-
-
 
     /**
      * display expense transaction inputs
@@ -235,8 +261,8 @@ public class InputCont extends JPanel{
     private void displayExpense(){
         
         clearPanel();
-        setLayout(new GridLayout(6,1));
-        setBorder(BorderFactory.createEmptyBorder(0,20,40,20)); //10 pixels of padding in each side of container
+        setLayout(new GridLayout(7,1));
+        setBorder(BorderFactory.createEmptyBorder(0,10,10,10)); //10 pixels of padding in each side of container
 
         add(new JLabel("Expense Transaction\\"){{
             setFont(new Font("Brush Script MT", Font.PLAIN, 20));
@@ -244,17 +270,16 @@ public class InputCont extends JPanel{
 
         }});
 
-        add(new JContainer(){{
-            
+        add(new JContainer(){{    
             amount.setPreferredSize(new Dimension(100,25));
             add(new JLabel("Amount: "){{
                 setFont(new Font("Serif", Font.BOLD, 16));
                 setForeground(COLOR_THEME.QUINARY);
             }});
                 
-            add(amount);
-            
+            add(amount);    
         }});
+        
         /****************Radio section that currently has a problem */
         add(new JContainer(){{
             amount.setPreferredSize(new Dimension(100,25));
@@ -313,28 +338,71 @@ public class InputCont extends JPanel{
         }});
 
         add(new JContainer(){{
-            // Storage variables for input values
-            final String[] storedAmount = {""};
-            final String[] storedItems  = {""};
-            final String[] storedReason = {""};
-            //action listener trigger for expense transaction
-            submit.addActionListener(new ActionListener() {   
+            add(new JLabel("Date: "){{
+                setFont(new Font("Serif", Font.BOLD, 16));
+                setForeground(COLOR_THEME.QUINARY);
+            }});
+            JSpinner.DateEditor dateEditor = new JSpinner.DateEditor(dateSpinner, "MM/dd/yyyy");
+            dateSpinner.setEditor(dateEditor);
+            dateSpinner.setPreferredSize(new Dimension(120, 25));
+            add(dateSpinner);
+        }});
 
+        
+
+
+        add(new JContainer(){{
+            // Remove any previously attached listeners to prevent duplicate firings
+            for (ActionListener al : submit.getActionListeners()) {
+                submit.removeActionListener(al);
+            }
+
+            submit.addActionListener(new ActionListener() {   
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    //declaring data types/object 
                     Double storedAmount = Double.parseDouble(amount.getValue().toString());
                     String storedItems = items.getText();
                     String storedReason = reason.getText();
-                    ExpenseTransaction bill = new BillTransaction(storedAmount, storedReason, "Water");
+                    String category = (selectedRadio != null) ? selectedRadio : "Others";
+                    Date storedDate = (Date) dateSpinner.getValue();
 
-                    //printing information
+                    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+                    String formattedDate = sdf.format(storedDate);
+
+                    ExpenseTransaction transaction;
+
+                    if(category.equals("Bills")){
+                        transaction = new BillTransaction(storedAmount, storedReason, "Joint Account");
+
+                    }else if(category.equals("Groceries")){
+                        transaction = new GroceryTransaction(storedAmount, storedReason);
+
+                    }else if(category.equals("Shopping")){
+                        transaction = new ShoppingTransaction(storedAmount, storedReason, "Checking Account");
+
+                    }else{
+                        transaction = new BillTransaction(storedAmount, storedReason, "Checking Account");
+                    }
+                    
                     System.out.println("Expense Amount: "  + storedAmount);
                     System.out.println("Expense Items: "   + storedItems);
                     System.out.println("Expense Reason: "  + storedReason);
+                    System.out.println("Expense Category: " + category);
+                    System.out.println("Date: " + formattedDate);
+                    System.out.println("Transaction Object Object: " + transaction);
+                    
 
-                    System.out.println("Bill Object: " + bill);
-                    transactionHistory.addExpense(bill);
+                    transactionHistory.addExpense(transaction);
+
+                    // Update RecentTransactionCont table
+                    if (recentTransactionCont != null) {
+                        recentTransactionCont.addExpenseTransaction(storedAmount, category, "Checking", storedItems);
+                    }
+
+                    // Update AccountsCont balance (expense = subtract from Checking by default)
+                    if (accountsCont != null) {
+                        accountsCont.updateBalance("Checking", -storedAmount);
+                    }
 
                     clearInputs();
                     displayOptions();
@@ -377,14 +445,6 @@ public class InputCont extends JPanel{
         reason.setText("");
         amount.setValue(1.0);
     }
-    public void updateTable(IncomeTransaction income ){
-        
-    }
-
-    public void updatedTable(ExpenseTransaction expense){
-
-    }
-
     
 
 }

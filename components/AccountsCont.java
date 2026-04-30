@@ -57,15 +57,39 @@ public class AccountsCont extends JPanel{
       var2.fillRoundRect(0, 0, this.getWidth(), this.getHeight(), 50, 50);
    }
 
+   /**
+    * Updates the displayed balance of a named account by a delta (positive = add, negative = subtract).
+    * Called by InputCont when a transaction is submitted.
+    * @param accountName  e.g. "Checking", "Savings", "Joint"
+    * @param delta        positive for income, negative for expense
+    */
+   public void updateBalance(String accountName, double delta) {
+       for (Profile profile : profiles) {
+           if (profile.getName().equalsIgnoreCase(accountName)) {
+               profile.adjustAmount(delta);
+               break;
+           }
+       }
+   }
+
    class Profile extends JPanel{
         private Color theme;
-
         private JLabel amountLabel;
-
         private JLabel nameLabel;
+        private double currentAmount;
+
+        public String getName() { return nameLabel.getText(); }
+
+        /** Adjusts the displayed balance by delta and refreshes the label. */
+        public void adjustAmount(double delta) {
+            currentAmount += delta;
+            amountLabel.setText(String.format("$%.2f", currentAmount));
+            repaint();
+        }
 
         public Profile(Color theme, String name, double amount){
             setOpaque(false);
+            this.currentAmount = amount;
 
             setLayout(new BorderLayout());
             setPreferredSize(new Dimension(150,115));
@@ -83,7 +107,6 @@ public class AccountsCont extends JPanel{
             amountLabel.setForeground(new ColorTheme().QUINARY);
             account.setFont(new Font("Serif", Font.BOLD, 12));
             account.setForeground(new ColorTheme().QUINARY);
-            
             
 
             add(nameLabel,"North");
