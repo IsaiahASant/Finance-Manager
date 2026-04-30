@@ -9,7 +9,7 @@ public class IncomeTransaction {
     public IncomeTransaction() {
         this.amount = 0;
         this.source = "Unkown";
-        this.ID = "N/A";
+        this.ID = TransactionID.generateId();
     }
 
     public IncomeTransaction( int amount, String source) {
@@ -65,7 +65,7 @@ public class IncomeTransaction {
         System.out.println("Amount: $" + amount);
     }
 
-     @Override
+    @Override
     public String toString() {
         return "IncomeTransaction{" +
                 "transactionId='" + ID + '\'' +

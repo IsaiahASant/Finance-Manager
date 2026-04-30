@@ -26,10 +26,24 @@ public class TransactionHistory {
         return expenses.toString();
     }
 
+    /**
+     * 
+     * @param newIncome
+     */
     public void addIncome(IncomeTransaction newIncome){
         income.add(newIncome);
+        try {
+            Files.writeString(Path.of("db/database.csv"), newIncome.toString() + "\n", StandardOpenOption.APPEND, StandardOpenOption.CREATE);
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
     }
     
+
+    /**
+     * 
+     * @param newExpense
+     */
     public void addExpense(Object newExpense){
         if(newExpense instanceof BillTransaction){
             expenses.add((BillTransaction)newExpense);
