@@ -11,7 +11,7 @@ import java.io.IOException;
 public class TransactionHistory {
     //instance variables for incomes and expenses
     private ArrayList<IncomeTransaction> income;
-    private ArrayList<ExpenseTransaction> expenses;
+    private ArrayList<Transaction> expenses;
 
     public TransactionHistory(){
         this.income = new ArrayList<IncomeTransaction>();
