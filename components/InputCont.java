@@ -30,7 +30,7 @@ public class InputCont extends JPanel{
         public JSpinner amount = new JSpinner(new SpinnerNumberModel(0.0,0.00, Double.MAX_VALUE,1));;
 
         // near your other field declarations
-public JSpinner dateSpinner = new JSpinner(new SpinnerDateModel());
+        public JSpinner dateSpinner = new JSpinner(new SpinnerDateModel());
 
         /** text field for reasoning */
         public JTextField reason = new JTextField(20);
@@ -39,13 +39,22 @@ public JSpinner dateSpinner = new JSpinner(new SpinnerDateModel());
         public JTextField items = new JTextField(20);
 
         /** keeps track of what radio button is being selected for creating income/expense objects */
-        private String selectedRadio;
+        private String selectedCategory;
 
-         /** temporary account list */
+        /** Keeps track of radio button is being selected for creating the object*/
+        private String selectedSource;
+
+        /** keeps track of radio button that is being selected for creating the object */
+        private String selectedAccount;
+        
+
+        /** temporary account list */
         private String [] accountNames = {"Checking","Savings","Joint"};
 
         /** String */
-        private String [] categoryNames = {"Bills", "Shopping", "Groceries", "Betting"};
+        private String [] categoryNames = {"Bills", "Shopping", "Groceries"};
+
+        private String [] sourceNames = {"work", "gift", "lottery"};
 
         /** back end components  */
         TransactionHistory transactionHistory = new TransactionHistory();
@@ -149,12 +158,12 @@ public JSpinner dateSpinner = new JSpinner(new SpinnerDateModel());
         /****************Radio section that currently has a problem */
         add(new JContainer(){{
             amount.setPreferredSize(new Dimension(100,25));
-            add(new JLabel("Category: "){{
+            add(new JLabel("Account: "){{
                 setFont(new Font("Serif", Font.BOLD, 16));
                 setForeground(COLOR_THEME.QUINARY);
             }});
             //add(amount);
-
+            /** expresses all the choice you get from the category {checking, Savings, Joint}*/
             add(new JComponent(){{
                 setLayout(new FlowLayout());
                 ButtonGroup group = new ButtonGroup(); //prevents from more that one radio is being selected
@@ -164,8 +173,8 @@ public JSpinner dateSpinner = new JSpinner(new SpinnerDateModel());
                     radio.addActionListener(new ActionListener(){
                         @Override
                         public void actionPerformed(ActionEvent e){
-                            selectedRadio = str;
-                            System.out.println("Selcted radio: " + selectedRadio);
+                            selectedAccount = str;
+                            System.out.println("Selcted radio: " + selectedAccount);
                             System.out.println(str + " Button is pressed: ");
 
                         }
@@ -177,16 +186,38 @@ public JSpinner dateSpinner = new JSpinner(new SpinnerDateModel());
             
             
         }});
-        /****************Radio section that currently has a problem */
+        /***** Getting the Source*/
         add(new JContainer(){{
             
             amount.setPreferredSize(new Dimension(100,25));
-            add(new JLabel("Source(Where is it coming from?): "){{
+            add(new JLabel("Source: "){{
                 setFont(new Font("Serif", Font.BOLD, 16));
                 setForeground(COLOR_THEME.QUINARY);
             }});
            
-            add(items);      
+            ///add(items);
+            add(new JComponent(){{
+                setLayout(new FlowLayout());
+                ButtonGroup group = new ButtonGroup(); //prevents from more that one radio is being selected
+                for(String str : sourceNames){
+                    JRadioButton radio = new JRadioButton(str);
+                    group.add(radio);
+                    radio.addActionListener(new ActionListener(){
+                        @Override
+                        public void actionPerformed(ActionEvent e){
+                            selectedSource = str;
+                            //selectedCategory = str;
+                            System.out.println("Selcted source radio: " + selectedSource);
+                            System.out.println(str + " Button is pressed: ");
+
+                        }
+                    });
+
+                    add(radio);
+                }
+            }});
+            
+            
         }});
 
         add(new JContainer(){{
@@ -212,9 +243,8 @@ public JSpinner dateSpinner = new JSpinner(new SpinnerDateModel());
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Double storedAmount = Double.parseDouble(amount.getValue().toString());
-                    String storedItems = items.getText();
-                    String storedReason = reason.getText();
-                    String account = (selectedRadio != null) ? selectedRadio : "Checking";
+                    String storedItems = (selectedSource != null) ? selectedSource : "work";
+                    String account = (selectedAccount != null) ? selectedAccount : "Checking";
                     Date storedDate = (Date) dateSpinner.getValue();
 
                     SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
@@ -222,8 +252,7 @@ public JSpinner dateSpinner = new JSpinner(new SpinnerDateModel());
                     
 
                     System.out.println("Income Amount: "  + storedAmount);
-                    System.out.println("Income Items: "   + storedItems);
-                    System.out.println("Income Reason: "  + storedReason);
+                    System.out.println("Income Items: "   + storedItems);     
                     System.out.println("Income Account: " + account);
                     System.out.println("Income Date: " + formattedDate);
 
@@ -232,7 +261,7 @@ public JSpinner dateSpinner = new JSpinner(new SpinnerDateModel());
 
                     // Update RecentTransactionCont table
                     if (recentTransactionCont != null) {
-                        recentTransactionCont.addIncomeTransaction(storedAmount, account, storedItems, storedReason);
+                        recentTransactionCont.addIncomeTransaction(storedAmount, account, storedItems);
                     }
 
                     // Update AccountsCont balance
@@ -258,8 +287,7 @@ public JSpinner dateSpinner = new JSpinner(new SpinnerDateModel());
      * when submit button is clicked, it goes back to menu 
      * options
      */
-    private void displayExpense(){
-        
+    private void displayExpense(){       
         clearPanel();
         setLayout(new GridLayout(7,1));
         setBorder(BorderFactory.createEmptyBorder(0,10,10,10)); //10 pixels of padding in each side of container
@@ -300,8 +328,8 @@ public JSpinner dateSpinner = new JSpinner(new SpinnerDateModel());
                     radio.addActionListener(new ActionListener(){
                         @Override
                         public void actionPerformed(ActionEvent e){
-                            selectedRadio = str;
-                            System.out.println("Selcted radio: " + selectedRadio);
+                            selectedCategory = str;
+                            System.out.println("Selcted radio: " + selectedCategory);
                             System.out.println(str + " Button is pressed");
                         }
                     });
@@ -363,7 +391,7 @@ public JSpinner dateSpinner = new JSpinner(new SpinnerDateModel());
                     Double storedAmount = Double.parseDouble(amount.getValue().toString());
                     String storedItems = items.getText();
                     String storedReason = reason.getText();
-                    String category = (selectedRadio != null) ? selectedRadio : "Others";
+                    String category = (selectedCategory != null) ? selectedCategory : "Others";
                     Date storedDate = (Date) dateSpinner.getValue();
 
                     SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
@@ -396,7 +424,7 @@ public JSpinner dateSpinner = new JSpinner(new SpinnerDateModel());
 
                     // Update RecentTransactionCont table
                     if (recentTransactionCont != null) {
-                        recentTransactionCont.addExpenseTransaction(storedAmount, category, "Checking", storedItems);
+                        recentTransactionCont.addExpenseTransaction(storedAmount, category, "Checking", category);
                     }
 
                     // Update AccountsCont balance (expense = subtract from Checking by default)
@@ -415,6 +443,9 @@ public JSpinner dateSpinner = new JSpinner(new SpinnerDateModel());
         }});
  
     }
+
+
+
 
     /**
      * clears main panel

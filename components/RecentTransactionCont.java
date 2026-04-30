@@ -77,6 +77,7 @@ public class RecentTransactionCont extends JPanel{
                 return c;
             }
         });
+        
         table.setBackground(COLOR_THEME.SECONDARY);
 
 
@@ -119,20 +120,22 @@ public class RecentTransactionCont extends JPanel{
     /**
      * Adds an income row to the transaction table.
      * Called by InputCont when the income submit button is pressed.
+     * the date api keeps track of the current time
      */
-    public void addIncomeTransaction(double amount, String account, String items, String reason) {
-        String display = String.format("+%.2f", amount);
-        tableModel.addRow(new Object[]{display, "Income", items, account, new java.util.Date().toString().substring(0,10)});
+    public void addIncomeTransaction(double amount, String account, String source) {
+        String display = "+" + amount; 
+        tableModel.addRow(new Object[]{display, "Income", source , account, new java.util.Date().toString().substring(0,10)});
     }
 
 
     /**
      * Adds an expense row to the transaction table.
      * Called by InputCont when the expense submit button is pressed.
+     * the data api keeps track of current time
      */
     public void addExpenseTransaction(double amount, String category, String account, String items) {
-        String display = String.format("-%.2f", amount);
-        tableModel.addRow(new Object[]{display, "Expense", items, category, new java.util.Date().toString().substring(0,10)});
+        String display = "-" + amount; 
+        tableModel.addRow(new Object[]{display, "Expense", category, account, new java.util.Date().toString().substring(0,10)});
     }
 
     //makes components rounded corners
