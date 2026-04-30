@@ -7,7 +7,7 @@ package backend;
  * 
  */
 
-public class BillTransaction implements Transaction{
+public class BillTransaction extends ExpenseTransaction implements Transaction{
     private String destination;
     private String ID;
     private String reason;

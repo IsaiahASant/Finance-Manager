@@ -9,7 +9,7 @@ import java.util.Date;
  * 
  */
 
-public class GroceryTransaction implements Transaction{
+public class GroceryTransaction extends ExpenseTransaction implements Transaction {
     private String ID;
     private String reason;
     private double amount;
