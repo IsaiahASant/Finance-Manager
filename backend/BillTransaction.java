@@ -1,4 +1,5 @@
 package backend;
+import java.util.Date;
 /**
  * Keeps track of the bills being paid
  * 
@@ -7,55 +8,38 @@ package backend;
  * 
  */
 
-public class BillTransaction extends ExpenseTransaction implements Transaction{
-    private String destination;
-    private String ID;
-    private String reason;
-    private double amount;
-
+public class BillTransaction extends ExpenseTransaction{
  
-
-    public BillTransaction(double amount, String reason, String destination){
-        super(amount, reason);
-        this.ID = TransactionID.generateId();
-        this.destination = destination;
-    }
-
-    /**
-     * @return reason
-     */
-    @Override
-    public String getReason(){
-        return reason;
-    }
-
-    /**
-     * @return amount
-     */
-    @Override
-    public double getAmount(){
-        return amount;
-    }
-    /**
-     * returns transactionId variable
-     */
-    @Override
-    public String getTransactionId(){
-        return ID;
-    }
-
-
     /**
      * 
+     * @param amount
+     * @param reason
+     * @param date
+     */
+    public BillTransaction(double amount, String reason, Date date){
+        super(amount, reason, date );
+    }
+
+     /**
+     * return bill which is object name
+     * @return bill which is object name
+     */
+    @Override
+    public String getType(){
+        return "Bill";
+    }
+    /**
+     * 
+     * @return toString()
      */
     @Override
     public String toString(){
-        return super.toString();
+        return super.toString()+  " ExpenseType:Bill";
     }
 
   
 
-    }
+}
 
 
 

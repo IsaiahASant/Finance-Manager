@@ -243,7 +243,7 @@ public class InputCont extends JPanel{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Double storedAmount = Double.parseDouble(amount.getValue().toString());
-                    String storedItems = (selectedSource != null) ? selectedSource : "work";
+                    String storedSource = (selectedSource != null) ? selectedSource : "work";
                     String account = (selectedAccount != null) ? selectedAccount : "Checking";
                     Date storedDate = (Date) dateSpinner.getValue();
 
@@ -252,16 +252,16 @@ public class InputCont extends JPanel{
                     
 
                     System.out.println("Income Amount: "  + storedAmount);
-                    System.out.println("Income Items: "   + storedItems);     
+                    System.out.println("Income Items: "   + storedSource);     
                     System.out.println("Income Account: " + account);
                     System.out.println("Income Date: " + formattedDate);
 
-                    IncomeTransaction income = new IncomeTransaction();
+                    IncomeTransaction income = new IncomeTransaction(storedAmount, storedSource, account, storedDate);
                     transactionHistory.addIncome(income);
 
                     // Update RecentTransactionCont table
                     if (recentTransactionCont != null) {
-                        recentTransactionCont.addIncomeTransaction(storedAmount, account, storedItems);
+                        recentTransactionCont.addIncomeTransaction(storedAmount, account, storedSource);
                     }
 
                     // Update AccountsCont balance
@@ -400,16 +400,16 @@ public class InputCont extends JPanel{
                     Transaction transaction;
 
                     if(category.equals("Bills")){
-                        transaction = new BillTransaction(storedAmount, storedReason, "Joint Account");
+                        transaction = new BillTransaction(storedAmount, storedReason, storedDate);
 
                     }else if(category.equals("Groceries")){
-                        transaction = new GroceryTransaction(storedAmount, storedReason, storedDate);
+                        transaction = new GroceryTransaction(storedAmount, storedReason, storedDate,storedItems);
 
                     }else if(category.equals("Shopping")){
-                        transaction = new ShoppingTransaction(storedAmount, storedReason, "Checking Account");
+                        transaction = new ShoppingTransaction(storedAmount, storedReason, storedDate, storedItems);
 
                     }else{
-                        transaction = new BillTransaction(storedAmount, storedReason, "Checking Account");
+                        transaction = new BillTransaction(storedAmount, storedReason, storedDate);
                     }
                     
                     System.out.println("Expense Amount: "  + storedAmount);

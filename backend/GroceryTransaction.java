@@ -1,72 +1,27 @@
 package backend;
-import java.util.ArrayList;
+
 import java.util.Date;
-/**
- * Keeps track of the bills being paid
- * 
- * @author Sean Powers & Isaiah Santamaria
- * @version Spring 2026
- * 
- */
 
-public class GroceryTransaction extends ExpenseTransaction implements Transaction {
-    private String ID;
-    private String reason;
-    private double amount;
-    private String date;
-    ArrayList<String> GroceryList;
-    
+public class GroceryTransaction extends ExpenseTransaction {
 
+    private String groceryList;
 
-
-
-    public GroceryTransaction(double amount, String reason,Date date){
-        super(amount, reason);
-        GroceryList = new ArrayList<>();
-        this.ID = TransactionID.generateId();
-
+    public GroceryTransaction(double amount, String reason, Date date, String grocery) {
+        super(amount, reason, date);
+        this.groceryList = grocery;
     }
 
-
-    /**
-     * @return date
-     */
-    public String getDate(){
-        return "date";
-    }
-
-    /**
-     * @return reason
-     */
     @Override
-    public String getReason(){
-        return reason;
+    public String getType(){
+        return "Grocery";
     }
 
-    /**
-     * @return amount
-     */
-    @Override
-    public double getAmount(){
-        return amount;
-    }
-
-
-    /**
-     * 
-     */
     @Override
     public String toString(){
-        return super.toString();
+        return super.toString() + " ExpenseType:Grocery";
     }
 
-    /**
-     * 
-     */
-    @Override
-    public String getTransactionId(){
-        return ID;
+    public void addItem(String item) {
+        groceryList = groceryList + " " + item;
     }
-
 }
-

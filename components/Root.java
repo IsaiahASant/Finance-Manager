@@ -20,7 +20,6 @@ public class Root extends JPanel {
     public InputCont inputCont;
     public AccountsCont accountsCont;
     public JContainer contentCont;
-    public AccountsChart accountChart;
 
     /** setting up buttons to be mainupliated here */
     public JButton csvButton = new JButton("Print");
@@ -41,8 +40,6 @@ public class Root extends JPanel {
         setBorder(BorderFactory.createEmptyBorder(0, 40, 40, 40)); // makes Root have auto padding
         setBackground(COLOR_THEME.PRIMARY);
         
-        accountChart = new AccountsChart();
-        contentCont.add(accountChart, BorderLayout.SOUTH);
 
 
         /**
@@ -78,9 +75,6 @@ public class Root extends JPanel {
         contentCont.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); //giving padding
         contentCont.add(inputCont,"West");
         contentCont.add(recentTransaction, "East");
-
-
-
 
         /** adding components to main JPanel */
         add(new JContainer(){{

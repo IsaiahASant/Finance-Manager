@@ -7,11 +7,19 @@ public interface Transaction{
     
     /** get reasoning from the object of the text input*/
     public String getReason();
+
     /** get the amount of transaction */
     public double getAmount();
-    /** toString() method*/
+
+    /** returns TransactionId*/
     public String getTransactionId();
+
+    /** returns date */
+    public String getDate();
+ 
+    /** toString() method*/
     @Override
     public String toString();
+
 
 }
