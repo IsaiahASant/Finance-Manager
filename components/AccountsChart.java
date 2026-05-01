@@ -6,7 +6,7 @@ import javax.swing.*;
 /**
  * Simple line graph to show the Checking, Savings, and Joint balances and changes. 
  * 
- * @author Sean Powers
+ * @author Sean Powers & Hayden Ralston
  * @version Spring 2026
  * 
  */
@@ -22,6 +22,8 @@ public class AccountsChart extends JPanel{
     private double jointBalance;
     private Thread refreshThread;
 
+    private boolean running = false;
+
     public AccountsChart(){
         setPreferredSize(new Dimension(300, 300));
         setBackground(Color.white);
@@ -29,7 +31,9 @@ public class AccountsChart extends JPanel{
     }
     
     public void refreshChart(){
-        boolean running = true;
+        if (running) return;
+
+        running = true;
 
         refreshThread = new Thread(() -> {
         while (running){
@@ -45,8 +49,28 @@ public class AccountsChart extends JPanel{
                 
             } catch (Exception e) {
                 Thread.currentThread().interrupt();
+                break;
             }}
         });
+        refreshThread.start();
+    }
+
+    public void stopChart() {
+        running = false;
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        g.setColor(Color.BLUE);
+        g.drawString("Checking: " + checkingBalance, 20, 50);
+
+        g.setColor(Color.GREEN);
+        g.drawString("Savings: " + savingingsBalance, 20, 100);
+
+        g.setColor(Color.RED);
+        g.drawString("Joint: " + JointBalance, 20, 150);
     }
 }
 
