@@ -18,7 +18,7 @@ public class AccountsChart extends JPanel{
 
     //amount to display, will have to go back;
     private double checkingBalance;
-    private double savingsBalance; 
+    private double savingsBalance ; 
     private double jointBalance;
     private Thread refreshThread;
 
@@ -67,10 +67,10 @@ public class AccountsChart extends JPanel{
         g.drawString("Checking: " + checkingBalance, 20, 50);
 
         g.setColor(Color.GREEN);
-        g.drawString("Savings: " + savingingsBalance, 20, 100);
+        g.drawString("Savings: " + savingsBalance, 20, 100);
 
         g.setColor(Color.RED);
-        g.drawString("Joint: " + JointBalance, 20, 150);
+        g.drawString("Joint: " + jointBalance, 20, 150);
     }
 }
 
