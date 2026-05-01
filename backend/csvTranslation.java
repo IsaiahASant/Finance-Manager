@@ -30,6 +30,9 @@ public class csvTranslation{
     */
     public static void main(String[] args) {
 
+        ArrayList<ExpenseTransaction> expenses = new ArrayList<>();
+        ArrayList<IncomeTransaction> incomes = new ArrayList<>();
+
         csvTranslation translator = new csvTranslation(expenses, incomes);
 
         try (FileWriter fw = new FileWriter("EveryTransaction.csv")) {

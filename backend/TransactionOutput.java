@@ -41,7 +41,13 @@ public class TransactionOutput {
     */
     public static void main(String[] args) {
 
-        csvTranslation translator = new csvTranslation(expenses, incomes, grocery, bills, shopping);
+        ArrayList<ExpenseTransaction> expenses = new ArrayList<>();
+        ArrayList<IncomeTransaction> incomes = new ArrayList<>();
+        ArrayList<ExpenseTransaction> grocery = new ArrayList<>();
+        ArrayList<IncomeTransaction> bills = new ArrayList<>();
+        ArrayList<ExpenseTransaction> shopping = new ArrayList<>();
+    
+        TransactionOutput translator = new TransactionOutput(expenses, incomes, grocery, bills, shopping);
 
         try (FileWriter fw = new FileWriter("EveryTransaction.csv")) {
 
