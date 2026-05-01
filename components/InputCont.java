@@ -1,13 +1,36 @@
 package components;
-import backend.*;
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
-
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.util.Date;
+
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.table.DefaultTableModel;
+
+import backend.BillTransaction;
+import backend.GroceryTransaction;
+import backend.IncomeTransaction;
+import backend.ShoppingTransaction;
+import backend.Transaction;
+import backend.TransactionHistory;
 
 /**
  * This is an interactive conatiner where it prompts
@@ -61,15 +84,22 @@ public class InputCont extends JPanel{
 
         /** References to sibling panels for cross-component updates */
         public RecentTransactionCont recentTransactionCont;
+
+        /** will be used to control accounts*/
         public AccountsCont accountsCont;
 
-    public InputCont(DefaultTableModel tableModel){ 
-        this(tableModel, null, null);
+        /** will be used to change table when printed */
+        TotalTransaction totalTransaction;
+       
+
+    public InputCont(DefaultTableModel tableModel, TotalTransaction totalTransaction){ 
+        this(tableModel, null, null, totalTransaction);
     }
 
-    public InputCont(DefaultTableModel tableModel, RecentTransactionCont recentTransactionCont, AccountsCont accountsCont){
+    public InputCont(DefaultTableModel tableModel, RecentTransactionCont recentTransactionCont, AccountsCont accountsCont, TotalTransaction totalTransaction){
         this.recentTransactionCont = recentTransactionCont;
         this.accountsCont = accountsCont;
+        this.totalTransaction = totalTransaction;
         setOpaque(false);
         setPreferredSize(new Dimension(350, 400));
         //setLayout(new GridBagLayout()); //helps center components automaticallly
@@ -257,7 +287,9 @@ public class InputCont extends JPanel{
                     System.out.println("Income Date: " + formattedDate);
 
                     IncomeTransaction income = new IncomeTransaction(storedAmount, storedSource, account, storedDate);
-                    transactionHistory.addIncome(income);
+
+                    totalTransaction.addIncome(storedAmount); // will be used to store amount 
+                    transactionHistory.addIncome(income); // added for graph
 
                     // Update RecentTransactionCont table
                     if (recentTransactionCont != null) {
@@ -419,8 +451,8 @@ public class InputCont extends JPanel{
                     System.out.println("Date: " + formattedDate);
                     System.out.println("Transaction Object Object: " + transaction);
                     
-
-                    transactionHistory.addExpense(transaction);
+                    totalTransaction.addExpense(storedAmount); //used to update graph
+                    transactionHistory.addExpense(transaction); //used for csv files
 
                     // Update RecentTransactionCont table
                     if (recentTransactionCont != null) {

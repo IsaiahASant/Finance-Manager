@@ -3,7 +3,12 @@ package components;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -25,43 +30,48 @@ public class Root extends JPanel {
     public JButton csvButton = new JButton("Print");
     public JTable table = new JTable();
 
-    /** Testing */
+    /** needed to keep track of transactionCont, needs to reference back to pointer */
     public DefaultTableModel tableModel = new DefaultTableModel(0, 0); ;
     
 
-    /** Temporary holder for transaction */
-    
-
-
+    /** used for coloring */
     public static final ColorTheme COLOR_THEME = new ColorTheme();
+
+    /** this will be use to keep track how much expense and income will be displayed in graph */
+    private TotalTransaction totalTransaction = new TotalTransaction();
+
     public Root(){
         
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(0, 40, 40, 40)); // makes Root have auto padding
         setBackground(COLOR_THEME.PRIMARY);
         
-
+        
 
         /**
-         *  ACTION LISTENER FOR csvButton, needs to capabilities to interpet and make a csv
-         * file of the Database/array
+         *  This action listener is used to start a new JFrame with the char
         */
         csvButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //ExpenseTransaction transaction = new BillTransaction(1000, "IDK", "Eletric");
-                //System.out.println(transaction);
+                
+                JFrame secondFrame = new JFrame("Second Window");
+                secondFrame.setSize(600, 400);
+                secondFrame.setResizable(false);
+                //sets up the graph
+                secondFrame.add(new GraphChart(totalTransaction.getIncome(),totalTransaction.getExpense()));
+
+                secondFrame.setVisible(true);
                 System.out.println("Income btn Clicked in root !");
+                
             }
         });
-
-        
-
 
 
         recentTransaction = new RecentTransactionCont(csvButton, tableModel); 
         BANNER = new Banner();
-        inputCont = new InputCont(tableModel);
+        /** tableModel will be used to update TableCont and totalTransaction will be used to update graph */
+        inputCont = new InputCont(tableModel,totalTransaction);
         accountsCont = new AccountsCont();
 
         // Inject sibling references into InputCont so it can update the other panels on submit
