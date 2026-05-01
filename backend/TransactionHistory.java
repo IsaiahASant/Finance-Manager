@@ -76,7 +76,8 @@ public class TransactionHistory {
                 Files.writeString(dbPath, "\"Transaction ID\",\"Transaction Type\",\"Amount\",\"Reason\",\"Date\"\n", StandardOpenOption.CREATE);
             }
         
-            if (newExpense instanceof BillTransaction bill) {
+            if (newExpense instanceof BillTransaction) {
+                BillTransaction bill = (BillTransaction) newExpense;
                 expenses.add(bill);
             
                 String expenseRow = "\"" + bill.getTransactionId() + "\"" + "," +
@@ -95,7 +96,8 @@ public class TransactionHistory {
                 Files.writeString(expensePath, expenseRow, StandardOpenOption.APPEND);
                 Files.writeString(dbPath, dbRow, StandardOpenOption.APPEND);
             
-            } else if (newExpense instanceof GroceryTransaction grocery) {
+            } else if (newExpense instanceof GroceryTransaction ) {
+                GroceryTransaction grocery = (GroceryTransaction) newExpense;
                 expenses.add(grocery);
             
                 String expenseRow = "\"" + grocery.getTransactionId() + "\"" + "," +
@@ -114,7 +116,9 @@ public class TransactionHistory {
                 Files.writeString(expensePath, expenseRow, StandardOpenOption.APPEND);
                 Files.writeString(dbPath, dbRow, StandardOpenOption.APPEND);
             
-            } else if (newExpense instanceof ShoppingTransaction shopping) {
+            } else if (newExpense instanceof ShoppingTransaction ) {
+                ShoppingTransaction shopping = (ShoppingTransaction) newExpense;
+
                 expenses.add(shopping);
             
                 String expenseRow = "\"" + shopping.getTransactionId() + "\"" + "," +
