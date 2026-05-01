@@ -35,7 +35,7 @@ public class IncomeTransaction implements Transaction {
         this.account = account;
         this.date = date;
         this.ID = TransactionID.generateId();
-        reason = "Paying for " + source + "s"; 
+        reason = "money from " + source; 
         
     }
 

@@ -20,7 +20,9 @@ public class BillTransaction extends ExpenseTransaction{
         super(amount, reason, date );
     }
 
-     /**
+ 
+    
+    /**
      * return bill which is object name
      * @return bill which is object name
      */

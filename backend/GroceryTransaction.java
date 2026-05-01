@@ -11,10 +11,17 @@ public class GroceryTransaction extends ExpenseTransaction {
         this.groceryList = grocery;
     }
 
+
+    public String getGroceryList(){
+        return groceryList;
+    }
+
     @Override
     public String getType(){
         return "Grocery";
     }
+
+
 
     @Override
     public String toString(){

@@ -1,5 +1,4 @@
 package backend;
-import java.util.ArrayList;
 import java.util.Date;
 /**
  * 
@@ -10,8 +9,7 @@ import java.util.Date;
  */
 
 public class ShoppingTransaction extends ExpenseTransaction {
-    private ArrayList<String> items;
-
+   
     private String reason;
     private double amount;
 
@@ -30,6 +28,11 @@ public class ShoppingTransaction extends ExpenseTransaction {
     @Override
     public String toString(){
         return super.toString() + " ExpenseType:Shopping";
+    }
+
+    public String getShoppingList(){
+        return shoppingList;
+
     }
 
 
