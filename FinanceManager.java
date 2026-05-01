@@ -12,15 +12,15 @@ public class FinanceManager extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBackground(new ColorTheme().PRIMARY);
         
-        add(new Root());
+        
 
         setVisible(true);
+        //adds JFrame
+        new Intro(this).start();
     }
 
     public static void main(String [] args){
-        new UITester();
-
-        
+        new FinanceManager();   
     }
     
 }
