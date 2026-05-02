@@ -1,6 +1,12 @@
 package components;
 import java.awt.Color; 
+
 /**
+ * Defines a centralized color palette used throughout the application UI.
+ * 
+ * This class provides consistent theming colors for primary UI elements,
+ * secondary accents, and transaction highlighting (income and expense).
+ * 
  * @author Isaiah Santamaria
  * @version 4/17/2026
  */
@@ -13,10 +19,14 @@ public class ColorTheme {
     public final Color QUATERNARY = new Color(114, 75,57);
     public final Color QUINARY = new Color(207,157,123);
 
-    /**Colors used to highlight income/expense in transaction table */
+    /** Colors used to highlight income/expense in transaction table */
     public final Color INCOME = new Color(33 , 234 , 48 );
     public final Color EXPENSE = new Color(235, 44, 22);
 
+    /**
+     * Constructs a ColorTheme object.
+     * Currently empty since all colors are predefined constants.
+     */
     public ColorTheme(){
     }
 }

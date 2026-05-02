@@ -2,7 +2,11 @@ package components;
 
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * displays the intro thread at the start of the application to welcome
+ * user
+ * @author Isaiah Santamaria
+ */
 public class Intro extends Thread{
     private static final ColorTheme COLOR_THEME = new ColorTheme();
     private final JFrame frame;
@@ -13,19 +17,19 @@ public class Intro extends Thread{
 
     @Override
     public void run() {
-        JPanel splash = new JPanel(new BorderLayout());
-        splash.setBackground(new ColorTheme().PRIMARY);
+        JPanel cover = new JPanel(new BorderLayout());
+        cover.setBackground(new ColorTheme().PRIMARY);
     
         JLabel welcome = new JLabel("Welcome", SwingConstants.CENTER);
         welcome.setFont(new Font("Arial", Font.BOLD, 48));
         welcome.setForeground(Color.WHITE);
-        splash.add(welcome, BorderLayout.CENTER);
+        cover.add(welcome, BorderLayout.CENTER);
     
-        // Show splash
+        // Show cover
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                frame.add(splash);
+                frame.add(cover);
                 frame.revalidate();
             }
         });
@@ -33,11 +37,11 @@ public class Intro extends Thread{
         // Hold for 2 seconds
         try { Thread.sleep(2000); } catch (InterruptedException ignored) {}
     
-        // Swap splash out, add Root in
+        // Swap cover out, add Root in
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                frame.remove(splash);
+                frame.remove(cover);
                 frame.add(new Root());
                 frame.revalidate();
                 frame.repaint();

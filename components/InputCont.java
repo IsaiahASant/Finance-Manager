@@ -11,26 +11,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
-import javax.swing.SpinnerDateModel;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
-
-import backend.BillTransaction;
-import backend.GroceryTransaction;
-import backend.IncomeTransaction;
-import backend.ShoppingTransaction;
-import backend.Transaction;
-import backend.TransactionHistory;
+import java.awt.*;
+import java.awt.event.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.*;
+import backend.*;
 
 /**
  * This is an interactive conatiner where it prompts
@@ -39,57 +26,56 @@ import backend.TransactionHistory;
  * @version 4/19/2026
  */
 public class InputCont extends JPanel{
-        /** display transaction variables */
-        
-        /**color Theme Object */
-        private static final ColorTheme COLOR_THEME = new ColorTheme();
+    /** Display transaction variables */
+    /** Color theme object used for UI styling */
+    private static final ColorTheme COLOR_THEME = new ColorTheme();
 
-        /** Buttons components */
-        public JButton income_btn;
-        public JButton expense_btn;
-        public JButton submit = new JButton("Submit");
+    /** Button components used to select transaction type */
+    public JButton income_btn;
+    public JButton expense_btn;
+    public JButton submit = new JButton("Submit");
 
-        /**Amount that is used for income or expense */
-        public JSpinner amount = new JSpinner(new SpinnerNumberModel(0.0,0.00, Double.MAX_VALUE,1));;
+    /** Amount used for income or expense transactions */
+    public JSpinner amount = new JSpinner(new SpinnerNumberModel(0.0,0.00, Double.MAX_VALUE,1));;
 
-        // near your other field declarations
-        public JSpinner dateSpinner = new JSpinner(new SpinnerDateModel());
+    /** Date selector for transaction input */
+    public JSpinner dateSpinner = new JSpinner(new SpinnerDateModel());
 
-        /** text field for reasoning */
-        public JTextField reason = new JTextField(20);
+    /** Text field used to enter the transaction reason/description */
+    public JTextField reason = new JTextField(20);
 
-        /** text field for reasoning */
-        public JTextField items = new JTextField(20);
+    /** Text field used to enter item details (shopping/grocery transactions) */
+    public JTextField items = new JTextField(20);
 
-        /** keeps track of what radio button is being selected for creating income/expense objects */
-        private String selectedCategory;
+    /** Tracks the selected category from radio button options */
+    private String selectedCategory;
 
-        /** Keeps track of radio button is being selected for creating the object*/
-        private String selectedSource;
+    /** Tracks the selected income source from radio buttons */
+    private String selectedSource;
 
-        /** keeps track of radio button that is being selected for creating the object */
-        private String selectedAccount;
-        
+    /** Tracks the selected account from radio buttons */
+    private String selectedAccount;
 
-        /** temporary account list */
-        private String [] accountNames = {"Checking","Savings","Joint"};
+    /** Available account names used in selection UI */
+    private String [] accountNames = {"Checking","Savings","Joint"};
 
-        /** String */
-        private String [] categoryNames = {"Bills", "Shopping", "Groceries"};
+    /** Available transaction categories used in selection UI */
+    private String [] categoryNames = {"Bills", "Shopping", "Groceries"};
 
-        private String [] sourceNames = {"work", "gift", "lottery"};
+    /** Available income sources used in selection UI */
+    private String [] sourceNames = {"work", "gift", "lottery"};
 
-        /** back end components  */
-        TransactionHistory transactionHistory = new TransactionHistory();
+    /** Backend transaction history manager */
+    TransactionHistory transactionHistory = new TransactionHistory();
 
-        /** References to sibling panels for cross-component updates */
-        public RecentTransactionCont recentTransactionCont;
+    /** Reference to recent transaction panel for UI updates */
+    public RecentTransactionCont recentTransactionCont;
 
-        /** will be used to control accounts*/
-        public AccountsCont accountsCont;
+    /** Reference to accounts panel for balance updates */
+    public AccountsCont accountsCont;
 
-        /** will be used to change table when printed */
-        TotalTransaction totalTransaction;
+    /** Reference to total transaction panel for summary display */
+    TotalTransaction totalTransaction;
        
 
     public InputCont(DefaultTableModel tableModel, TotalTransaction totalTransaction){ 

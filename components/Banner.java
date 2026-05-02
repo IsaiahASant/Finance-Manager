@@ -1,14 +1,15 @@
 package components;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Image;
 import javax.swing.*;
 
-
-
 /**
- * serves as a banner
+ * A UI banner component displayed at the top of the application.
+ * It contains the application title, credits label, and a logo icon.
+ * 
+ * This class is responsible for styling and arranging the header section
+ * of the Personal Finance Tracker interface.
+ * 
  * @author Isaiah Santamaria
  * @version 4/19/2026
  */
@@ -21,6 +22,10 @@ public class Banner extends JPanel{
     private JLabel logoCont;
     
 
+    /**
+     * Constructs the Banner panel, initializes UI components,
+     * applies styling, and arranges layout for the header section.
+     */
     public Banner(){
         setLayout(new BorderLayout());
         setBackground(new ColorTheme().SECONDARY);
@@ -29,19 +34,11 @@ public class Banner extends JPanel{
 
         /************** Styling and intilizing components ***********/
 
-        //images
-        Image scaledImage = icon.getImage().getScaledInstance(80, 60, Image.SCALE_SMOOTH); //scalling down image size
-        logoCont = new JLabel(new ImageIcon(scaledImage));
-        logoCont.setPreferredSize(new Dimension(100,75));
-
         //title 
         title.setFont(new Font("Serif", Font.BOLD, 28));
         title.setForeground(new ColorTheme().QUINARY);
         creds.setFont(new Font("Serif", Font.BOLD, 13));
         creds.setForeground(new ColorTheme().QUATERNARY);
-
-
-
 
         /** adding components to main Container */
         add(new JPanel(){{
@@ -51,11 +48,8 @@ public class Banner extends JPanel{
             add(creds, "South");
         }}, "West");
 
-        add(logoCont, "East");
-
+        //add(logoCont, "East");
 
         setVisible(true);
     }
-
-    
 }

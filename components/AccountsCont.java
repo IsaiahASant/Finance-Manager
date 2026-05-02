@@ -1,4 +1,5 @@
 package components;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -7,7 +8,12 @@ import javax.swing.*; // Imports BoxLayout, JPanel, and Box
 import java.awt.*;    // Imports Component and Container
 
 /**
- * THis class is in charge of displaying accounts status below banner
+ * A UI component responsible for displaying account summaries
+ * (Checking, Savings, and Joint) below the main banner.
+ * 
+ * Each account is represented as a Profile panel showing its name and balance,
+ * and can be updated dynamically when transactions occur.
+ * 
  * @author Isaiah Santamaria
  * @version 5/19/2026
  */
@@ -24,6 +30,10 @@ public class AccountsCont extends JPanel{
     private DefaultTableModel tableModel;
     private JButton print_csv_btn;
 
+    /**
+     * Constructs the AccountsCont panel and initializes all account profiles
+     * with default values and layout settings.
+     */
     public AccountsCont(){
         setOpaque(false);
 
@@ -45,9 +55,13 @@ public class AccountsCont extends JPanel{
 
         
         setVisible(true);
-        
     }
 
+    /**
+     * Paints the background of the AccountsCont panel with a rounded rectangle style.
+     *
+     * @param var1 the Graphics object used for rendering
+     */
     @Override
     protected void paintComponent(Graphics var1) {
       super.paintComponent(var1);
@@ -58,10 +72,11 @@ public class AccountsCont extends JPanel{
    }
 
    /**
-    * Updates the displayed balance of a named account by a delta (positive = add, negative = subtract).
-    * Called by InputCont when a transaction is submitted.
-    * @param accountName  e.g. "Checking", "Savings", "Joint"
-    * @param delta        positive for income, negative for expense
+    * Updates the balance of a specific account by adding or subtracting a value.
+    * This is typically triggered by a transaction event.
+    *
+    * @param accountName the name of the account (e.g., "Checking", "Savings", "Joint")
+    * @param delta the amount to adjust the balance by (positive or negative)
     */
    public void updateBalance(String accountName, double delta) {
        for (Profile profile : profiles) {
@@ -72,6 +87,10 @@ public class AccountsCont extends JPanel{
        }
    }
 
+   /**
+    * Internal UI component representing a single account profile card.
+    * Displays the account name and current balance.
+    */
    class Profile extends JPanel{
         private Color theme;
         private JLabel amountLabel;
@@ -80,13 +99,24 @@ public class AccountsCont extends JPanel{
 
         public String getName() { return nameLabel.getText(); }
 
-        /** Adjusts the displayed balance by delta and refreshes the label. */
+        /**
+         * Adjusts the account balance and updates the displayed value.
+         *
+         * @param delta the amount to add or subtract from the balance
+         */
         public void adjustAmount(double delta) {
             currentAmount += delta;
             amountLabel.setText(String.format("$%.2f", currentAmount));
             repaint();
         }
 
+        /**
+         * Constructs a Profile panel representing a single account.
+         *
+         * @param theme the color theme for styling the profile
+         * @param name the name of the account
+         * @param amount the initial balance of the account
+         */
         public Profile(Color theme, String name, double amount){
             setOpaque(false);
             this.currentAmount = amount;
@@ -124,6 +154,12 @@ public class AccountsCont extends JPanel{
             
             this.theme = theme;
         }
+
+        /**
+         * Paints the background styling for the Profile card.
+         *
+         * @param var1 the Graphics object used for rendering
+         */
         @Override
         protected void paintComponent(Graphics var1) {
             super.paintComponent(var1);
@@ -133,7 +169,4 @@ public class AccountsCont extends JPanel{
             var2.fillRoundRect(0, 0, this.getWidth(), this.getHeight(), 25, 25);
         }
    }
-
-
-   
 }

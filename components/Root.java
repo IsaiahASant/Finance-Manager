@@ -27,7 +27,7 @@ public class Root extends JPanel {
     public JContainer contentCont;
 
     /** setting up buttons to be mainupliated here */
-    public JButton csvButton = new JButton("Print");
+    public JButton graphButton = new JButton("Print");
     public JTable table = new JTable();
 
     /** needed to keep track of transactionCont, needs to reference back to pointer */
@@ -51,7 +51,7 @@ public class Root extends JPanel {
         /**
          *  This action listener is used to start a new JFrame with the char
         */
-        csvButton.addActionListener(new ActionListener() {
+        graphButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 
@@ -68,7 +68,7 @@ public class Root extends JPanel {
         });
 
 
-        recentTransaction = new RecentTransactionCont(csvButton, tableModel); 
+        recentTransaction = new RecentTransactionCont(graphButton, tableModel); 
         BANNER = new Banner();
         /** tableModel will be used to update TableCont and totalTransaction will be used to update graph */
         inputCont = new InputCont(tableModel,totalTransaction);

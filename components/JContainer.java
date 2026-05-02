@@ -11,10 +11,12 @@ public class JContainer extends JPanel{
 
     
     public JContainer(){
-
         super.setOpaque(false);
     }
-
+    /**
+     * can intake borderlayout objects
+     * @param e
+     */
     public JContainer(BorderLayout e){
         super(e);
         super.setOpaque(false);

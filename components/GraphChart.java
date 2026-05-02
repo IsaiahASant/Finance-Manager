@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
-
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
@@ -12,7 +11,7 @@ import javax.swing.JPanel;
  * Simple bar chart showing Income vs Expense totals.
  * Y-axis fixed from $0 to $10,000.
  *
- * @author Sean Powers & Hayden Ralston & Isaiah
+ * @author Isaiah Santamaria
  * @version Spring 2026
  */
 public class GraphChart extends JPanel {

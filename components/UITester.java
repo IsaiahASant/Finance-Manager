@@ -1,10 +1,8 @@
 package components;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
 /**
+ * THIS IS FOR TESTING PURPOSES NOT REALY PRODUCTION 
  * JFrame that displays everything
  * the only thing that should be touched in class is the 
  * set size method in line 17, otherwise leave everything else alone

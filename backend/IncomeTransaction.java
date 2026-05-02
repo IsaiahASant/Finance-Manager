@@ -1,7 +1,14 @@
 package backend;
 import java.util.Date;
 
-
+/**
+ * Represents an income transaction in the system.
+ * This class implements the "Transaction" interface and stores
+ * information about money received, including its source, destination account,
+ * and associated metadata such as date and transaction ID.
+ * 
+ * @author Hayden & Isaiah Santamaria
+ */
 public class IncomeTransaction implements Transaction {
     private double amount;
     private String source;
@@ -10,11 +17,9 @@ public class IncomeTransaction implements Transaction {
     private String account;
     private Date date; 
 
-    private double tax; 
-    private double afterTax;
-
     /**
-     * when there is not param
+     * Default constructor for an IncomeTransaction.
+     * Initializes fields with default values and generates a transaction ID.
      */
     public IncomeTransaction() {
         this.amount = 0;
@@ -23,11 +28,12 @@ public class IncomeTransaction implements Transaction {
     }
 
     /**
-     * Overrwritng constructor
-     * @param amount the amount that is being included
-     * @param source where is the money coming from
-     * @param account which account is this transaction is going towards
-     * @param date keeps tracks of the date
+     * Constructs an IncomeTransaction with specified details.
+     *
+     * @param amount the amount of money received
+     * @param source the source from which the income is received
+     * @param account the account where the income is deposited
+     * @param date the date the transaction occurred
      */
     public IncomeTransaction(double amount, String source, String account, Date date) {
         this.amount = amount;
@@ -36,12 +42,12 @@ public class IncomeTransaction implements Transaction {
         this.date = date;
         this.ID = TransactionID.generateId();
         reason = "money from " + source; 
-        
     }
 
     /**
-     * returns the amount
-     * @return amount
+     * return the transaction amount
+     * 
+     * @return the transaction amount
      */
     @Override
     public double getAmount() {
@@ -49,27 +55,28 @@ public class IncomeTransaction implements Transaction {
     }
 
     /**
-     * returns the reason of the transaction
-     * @return reason
+     * return a string describing the reason for the income
+     *
+     * @return a string describing the reason for the income
      */
     @Override
     public String getReason(){
         return reason;
-
     }
 
     /**
-     * returns where the source of the transaction 
-     * is coming from
-     * @return source
+     * Gets the source of the income.
+     *
+     * @return the income source
      */
     public String getSource() {
         return source;
     }
 
     /**
-     * returns the ID of the transaction
-     * @return ID
+     * Gets the transaction ID.
+     *
+     * @return the unique transaction ID
      */
     @Override
     public String getTransactionId() {
@@ -77,32 +84,36 @@ public class IncomeTransaction implements Transaction {
     }
 
     /**
-     * return account, the destination where the income is going towards
-     * @return account, the destination where the income is going towards
+     * Gets the destination account of the income.
+     *
+     * @return the account receiving the income
      */
     public String getAccount(){
         return account;
     }
 
     /**
-     * returns date into a String value
-     * @returns date into a String value
+     * Gets the date of the transaction as a string.
+     *
+     * @return the transaction date in String format
      */
     public String getDate(){
         return date.toString();
     }
 
-
-
-
+    /**
+     * Displays basic transaction details to the console.
+     */
     public void displayTransaction() {
         System.out.println("Transaction ID: " + ID);
         System.out.println("Source: " + source);
         System.out.println("Amount: $" + amount);
     }
+
     /**
-     * returns the content of the object
-     * @returns the object content
+     * Returns a string representation of the IncomeTransaction.
+     *
+     * @return formatted string containing transaction details
      */
     @Override
     public String toString() {
@@ -111,11 +122,5 @@ public class IncomeTransaction implements Transaction {
                 ", source='" + source + '\'' +
                 ", amount=" + amount +
                 '}';
-    }
-
-    public static void main(String[] args) {
-        IncomeTransaction transaction = new IncomeTransaction(1000.0,"source", "source", new Date());
-
-        System.out.println(transaction.getDate());
     }
 }
